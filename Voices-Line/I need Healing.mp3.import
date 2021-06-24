@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/I need Healing.mp3-23b61d7327d7e3522d7ad810a43006ae.mp3str"
+
+[deps]
+
+source_file="res://Voices-Line/I need Healing.mp3"
+dest_files=[ "res://.import/I need Healing.mp3-23b61d7327d7e3522d7ad810a43006ae.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,185 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://TileSet/Petonque_Tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Arts/Tree1.2.png" type="Texture" id=2]
+[ext_resource path="res://Arts/Timmy_transp.png" type="Texture" id=3]
+[ext_resource path="res://Arts/tileable_grass_00.png" type="Texture" id=4]
+[ext_resource path="res://Arts/boule2.png" type="Texture" id=5]
+[ext_resource path="res://Arts/boule3.png" type="Texture" id=6]
+[ext_resource path="res://Arts/boule1.png" type="Texture" id=7]
+[ext_resource path="res://Arts/cochonnet1.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/Petonque.gd" type="Script" id=9]
+[ext_resource path="res://Arts/Aloes_transp.png" type="Texture" id=10]
+[ext_resource path="res://Arts/FLOWER1-Sheet.png" type="Texture" id=11]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -44.9606, -41.3132, -133.086, -37.755, 133.086, 37.755, 110.241, 91.8108, -30.8677, -11.7859, 30.8677, 11.7859, 319.019, 149.056, 0, 0, 0, 0, 363.117, 198.818 )
+}
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 362.966, 197.662, 8.9797, -7.296, -8.9797, 7.296, 328.731, 211.693, 0, 0, 0, 0, 304.598, 235.265 )
+}
+
+[sub_resource type="Curve2D" id=3]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 364.088, 198.785, -14.592, -11.2246, 14.592, 11.2246, 408.987, 336.286, 0, 0, 0, 0, 472.406, 356.491 )
+}
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 11 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "Default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": false,
+"name": "Wind",
+"speed": 2.0
+} ]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 9 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -61.3265
+margin_top = -26.4285
+margin_right = 2190.67
+margin_bottom = 3544.57
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+stretch_mode = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Grass" type="TileMap" parent="."]
+format = 1
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+format = 1
+tile_data = PoolIntArray( 262149, 0, 0, 262150, 0, 1, 262151, 0, 1, 262152, 0, 1, 262153, 0, 2, 327685, 0, 65536, 327686, 0, 65537, 327687, 0, 65537, 327688, 0, 65537, 327689, 0, 65538, 393221, 0, 65536, 393222, 0, 65537, 393223, 0, 65537, 393224, 0, 65537, 393225, 0, 65538, 458757, 0, 65536, 458758, 0, 65537, 458759, 0, 65537, 458760, 0, 65537, 458761, 0, 65538, 524293, 0, 65536, 524294, 0, 65537, 524295, 0, 65537, 524296, 0, 65537, 524297, 0, 65538, 589829, 0, 65536, 589830, 0, 65537, 589831, 0, 65537, 589832, 0, 65537, 589833, 0, 65538, 655365, 0, 65536, 655366, 0, 65537, 655367, 0, 65537, 655368, 0, 65537, 655369, 0, 65538, 720901, 0, 65536, 720902, 0, 65537, 720903, 0, 65537, 720904, 0, 65537, 720905, 0, 65538, 786437, 0, 65536, 786438, 0, 65537, 786439, 0, 65537, 786440, 0, 65537, 786441, 0, 65538, 851973, 0, 65536, 851974, 0, 65537, 851975, 0, 65537, 851976, 0, 65537, 851977, 0, 65538, 917509, 0, 65536, 917510, 0, 65537, 917511, 0, 65537, 917512, 0, 65537, 917513, 0, 65538, 983045, 0, 65536, 983046, 0, 65537, 983047, 0, 65537, 983048, 0, 65537, 983049, 0, 65538, 1048581, 0, 65536, 1048582, 0, 65537, 1048583, 0, 65537, 1048584, 0, 65537, 1048585, 0, 65538, 1114117, 0, 65536, 1114118, 0, 65537, 1114119, 0, 65537, 1114120, 0, 65537, 1114121, 0, 65538, 1179653, 0, 65536, 1179654, 0, 65537, 1179655, 0, 65537, 1179656, 0, 65537, 1179657, 0, 65538, 1245189, 0, 65536, 1245190, 0, 65537, 1245191, 0, 65537, 1245192, 0, 65537, 1245193, 0, 65538, 1310725, 0, 65536, 1310726, 0, 65537, 1310727, 0, 65537, 1310728, 0, 65537, 1310729, 0, 65538, 1376261, 0, 65536, 1376262, 0, 65537, 1376263, 0, 65537, 1376264, 0, 65537, 1376265, 0, 65538, 1441797, 0, 65536, 1441798, 0, 65537, 1441799, 0, 65537, 1441800, 0, 65537, 1441801, 0, 65538, 1507333, 0, 131072, 1507334, 0, 131073, 1507335, 0, 131073, 1507336, 0, 131073, 1507337, 0, 131074 )
+
+[node name="Tree12" type="Sprite" parent="."]
+position = Vector2( 167.299, 383.519 )
+scale = Vector2( 1.46965, 1.46965 )
+texture = ExtResource( 2 )
+
+[node name="Tree14" type="Sprite" parent="."]
+position = Vector2( 203.537, 1356.07 )
+scale = Vector2( 1.28174, 1.28174 )
+texture = ExtResource( 2 )
+
+[node name="Tree13" type="Sprite" parent="."]
+position = Vector2( 820.233, 860.198 )
+scale = Vector2( 1.58544, 1.58544 )
+texture = ExtResource( 2 )
+
+[node name="Timmy_transp" type="Sprite" parent="."]
+position = Vector2( 364.206, 198.147 )
+texture = ExtResource( 3 )
+
+[node name="Node2D2" type="Node2D" parent="."]
+scale = Vector2( 0.25, 0.25 )
+
+[node name="cochonnet1" type="Sprite" parent="Node2D2"]
+position = Vector2( 1944.83, 3132.19 )
+texture = ExtResource( 8 )
+
+[node name="boule2" type="Sprite" parent="Node2D2"]
+position = Vector2( 1903.16, 2900.48 )
+texture = ExtResource( 5 )
+
+[node name="boule3" type="Sprite" parent="Node2D2"]
+position = Vector2( 2141.45, 2720.61 )
+texture = ExtResource( 6 )
+
+[node name="boule1" type="Sprite" parent="Node2D2"]
+position = Vector2( 1854.03, 2454.13 )
+texture = ExtResource( 7 )
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( -44.9606, -41.3132 )
+rotation = 0.610338
+rotate = false
+loop = false
+
+[node name="Aloes_transp" type="Sprite" parent="."]
+position = Vector2( 363.527, 197.662 )
+scale = Vector2( 0.202, 0.202 )
+texture = ExtResource( 10 )
+offset = Vector2( 20, 80 )
+
+[node name="Path2D_Aloes" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D_Aloes"]
+position = Vector2( 362.966, 197.662 )
+rotation = 2.8636
+rotate = false
+loop = false
+
+[node name="Path2D_Terrain" type="Path2D" parent="."]
+curve = SubResource( 3 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D_Terrain"]
+position = Vector2( 364.088, 198.785 )
+rotation = 1.33179
+rotate = false
+loop = false
+
+[node name="Flower1" type="AnimatedSprite" parent="." groups=[
+"flowers",
+]]
+position = Vector2( 662.983, 277.085 )
+frames = SubResource( 7 )
+animation = "Default"
+
+[node name="Flower2" type="AnimatedSprite" parent="." groups=[
+"flowers",
+]]
+position = Vector2( 693.902, 283.626 )
+frames = SubResource( 7 )
+animation = "Default"
+
+[node name="Flower5" type="AnimatedSprite" parent="." groups=[
+"flowers",
+]]
+position = Vector2( 722.443, 276.49 )
+frames = SubResource( 7 )
+animation = "Default"
+
+[node name="Flower3" type="AnimatedSprite" parent="." groups=[
+"flowers",
+]]
+position = Vector2( 677.253, 301.464 )
+frames = SubResource( 7 )
+animation = "Default"
+
+[node name="Flower4" type="AnimatedSprite" parent="." groups=[
+"flowers",
+]]
+position = Vector2( 711.146, 300.869 )
+frames = SubResource( 7 )
+animation = "Default"

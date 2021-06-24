@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Team 1.mp3-be1049b2be387b6884e1fbb9ae50aa62.mp3str"
+
+[deps]
+
+source_file="res://Voices-Line/Team 1.mp3"
+dest_files=[ "res://.import/Team 1.mp3-be1049b2be387b6884e1fbb9ae50aa62.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
