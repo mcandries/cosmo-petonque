@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://TileSet/Petonque_Tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Arts/Tree1.2.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/Petonque.gd" type="Script" id=9]
 [ext_resource path="res://Arts/Aloes_transp.png" type="Texture" id=10]
 [ext_resource path="res://Arts/FLOWER1-Sheet.png" type="Texture" id=11]
+[ext_resource path="res://Musics/boostiooooo v2.wav" type="AudioStream" id=12]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -183,3 +184,7 @@ animation = "Default"
 position = Vector2( 711.146, 300.869 )
 frames = SubResource( 7 )
 animation = "Default"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+autoplay = true

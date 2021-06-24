@@ -11,7 +11,8 @@ config_version=4
 [application]
 
 config/name="CosmoPetonque"
-config/icon="res://Arts/icon.png"
+run/main_scene="res://Menu.tscn"
+config/icon="res://Logos/icon.png"
 
 [autoload]
 

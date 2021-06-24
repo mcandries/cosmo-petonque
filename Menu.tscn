@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Musics/Main Theme song Version Final.wav" type="AudioStream" id=1]
+[ext_resource path="res://Fonts/lethal-injector-regular.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Fonts/Fonts-Button-actionJ.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scripts/Menu.gd" type="Script" id=4]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="."]
+margin_top = 29.0
+margin_right = 1021.0
+margin_bottom = 113.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.815686, 0.254902, 0.254902, 1 )
+text = "COSMO-PETONQUE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Play" type="Button" parent="Label"]
+margin_left = 729.0
+margin_top = 226.0
+margin_right = 932.0
+margin_bottom = 283.0
+rect_pivot_offset = Vector2( 54, 85 )
+custom_fonts/font = ExtResource( 3 )
+text = "PLAY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Credits" type="Button" parent="Label"]
+margin_left = 730.0
+margin_top = 293.0
+margin_right = 933.0
+margin_bottom = 350.0
+rect_pivot_offset = Vector2( 54, 85 )
+custom_fonts/font = ExtResource( 3 )
+text = "CREDITS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Options" type="Button" parent="Label"]
+margin_left = 730.0
+margin_top = 360.0
+margin_right = 933.0
+margin_bottom = 417.0
+rect_pivot_offset = Vector2( 54, 85 )
+custom_fonts/font = ExtResource( 3 )
+text = "OPTIONS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Quit" type="Button" parent="Label"]
+margin_left = 731.0
+margin_top = 427.0
+margin_right = 934.0
+margin_bottom = 484.0
+rect_pivot_offset = Vector2( 54, 85 )
+custom_fonts/font = ExtResource( 3 )
+text = "QUIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+autoplay = true
+
+[connection signal="pressed" from="Label/Button_Play" to="." method="_on_Button_Play_pressed"]
+[connection signal="pressed" from="Label/Button_Credits" to="." method="_on_Button_Credits_pressed"]
+[connection signal="pressed" from="Label/Button_Quit" to="." method="_on_Button_Quit_pressed"]
