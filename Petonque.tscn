@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://TileSet/Petonque_Tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Arts/Tree1.2.png" type="Texture" id=2]
@@ -30,11 +30,11 @@ _data = {
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 64, 64 )
+region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 11 )
-region = Rect2( 64, 0, 64, 64 )
+region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 11 )
@@ -42,16 +42,19 @@ region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 4 ) ],
-"loop": true,
-"name": "Default",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
 "loop": false,
 "name": "Wind",
 "speed": 2.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "Default",
+"speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 167.801, 661.664 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 9 )
@@ -102,19 +105,19 @@ texture = ExtResource( 3 )
 scale = Vector2( 0.25, 0.25 )
 
 [node name="cochonnet1" type="Sprite" parent="Node2D2"]
-position = Vector2( 1944.83, 3132.19 )
+position = Vector2( 2734.17, 2900.56 )
 texture = ExtResource( 8 )
 
 [node name="boule2" type="Sprite" parent="Node2D2"]
-position = Vector2( 1903.16, 2900.48 )
+position = Vector2( 2744.17, 2732.99 )
 texture = ExtResource( 5 )
 
 [node name="boule3" type="Sprite" parent="Node2D2"]
-position = Vector2( 2141.45, 2720.61 )
+position = Vector2( 2763.3, 2611.92 )
 texture = ExtResource( 6 )
 
 [node name="boule1" type="Sprite" parent="Node2D2"]
-position = Vector2( 1854.03, 2454.13 )
+position = Vector2( 2734.24, 2502.24 )
 texture = ExtResource( 7 )
 
 [node name="Path2D" type="Path2D" parent="."]
@@ -187,4 +190,30 @@ animation = "Default"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
-autoplay = true
+
+[node name="Viseur_StartPos" type="Node2D" parent="."]
+position = Vector2( 473.58, 373.461 )
+
+[node name="Gravier_Area" type="Area2D" parent="."]
+position = Vector2( 472.252, 400.819 )
+space_override = 3
+gravity_vec = Vector2( 0, 0 )
+gravity = 0.0
+linear_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gravier_Area"]
+position = Vector2( 11.7888, 492.897 )
+shape = SubResource( 8 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 511, 300 )
+current = true
+process_mode = 0
+limit_left = 0
+limit_top = 0
+limit_right = 1025
+limit_bottom = 1750
+limit_smoothed = true
+smoothing_enabled = true
+smoothing_speed = 10.0
+editor_draw_limits = true

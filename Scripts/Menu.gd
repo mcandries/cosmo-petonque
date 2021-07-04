@@ -29,3 +29,8 @@ func _on_Button_Play_pressed():
 func _on_Button_Credits_pressed():
 	get_tree().change_scene("res://Credits.tscn")
 	
+
+
+func _on_Button_Options_pressed():
+	get_tree().change_scene("res://Options.tscn")
+	pass # Replace with function body.

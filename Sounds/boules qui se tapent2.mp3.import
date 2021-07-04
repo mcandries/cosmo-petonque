@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/boules qui se tapent2.mp3-9f970fbc7197f2216e926d1b6e80fdae.mp3str"
+
+[deps]
+
+source_file="res://Sounds/boules qui se tapent2.mp3"
+dest_files=[ "res://.import/boules qui se tapent2.mp3-9f970fbc7197f2216e926d1b6e80fdae.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/boules qui se tapent.mp3-b6a3b4ebcbf8760e1d93c79fc8b
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

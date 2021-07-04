@@ -74,4 +74,5 @@ autoplay = true
 
 [connection signal="pressed" from="Label/Button_Play" to="." method="_on_Button_Play_pressed"]
 [connection signal="pressed" from="Label/Button_Credits" to="." method="_on_Button_Credits_pressed"]
+[connection signal="pressed" from="Label/Button_Options" to="." method="_on_Button_Options_pressed"]
 [connection signal="pressed" from="Label/Button_Quit" to="." method="_on_Button_Quit_pressed"]

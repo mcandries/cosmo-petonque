@@ -1,7 +1,4 @@
 extends Node
 
-var	prequeue_initpos = Vector2 (0,0)
-var	prequeue_endpos = Vector2 (0,0)
-var prequeue_center_pos = Vector2 (0,0)
-
-var d = {}
+var mouse_pos = Vector2 (0,0)   #expose mouse pos.
+var BUILD_TIME = false			#Build time to disable music & others while debug/buiding
