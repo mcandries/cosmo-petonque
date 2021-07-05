@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://TileSet/Petonque_Tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Arts/Tree1.2.png" type="Texture" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://Arts/Aloes_transp.png" type="Texture" id=10]
 [ext_resource path="res://Arts/FLOWER1-Sheet.png" type="Texture" id=11]
 [ext_resource path="res://Musics/boostiooooo v2.wav" type="AudioStream" id=12]
+[ext_resource path="res://Fonts/WorldWorstFont.tres" type="DynamicFont" id=13]
+[ext_resource path="res://Fonts/TTF/PoetsenOne-Regular.ttf" type="DynamicFontData" id=14]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -55,6 +57,10 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 167.801, 661.664 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 18
+font_data = ExtResource( 14 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 9 )
@@ -217,3 +223,37 @@ limit_smoothed = true
 smoothing_enabled = true
 smoothing_speed = 10.0
 editor_draw_limits = true
+
+[node name="CanvasLayerGUI" type="CanvasLayer" parent="."]
+
+[node name="LabelPrecision" type="Label" parent="CanvasLayerGUI"]
+margin_left = 364.315
+margin_top = 106.535
+margin_right = 605.315
+margin_bottom = 143.535
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0.137255, 0.137255, 0.137255, 1 )
+custom_colors/font_color_shadow = Color( 0.694118, 0.568627, 0, 1 )
+text = "PRECISION"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelTips" type="Label" parent="CanvasLayerGUI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -337.0
+margin_top = 36.0
+margin_right = 280.0
+margin_bottom = 75.0
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.0862745, 0.0745098, 0.0745098, 1 )
+custom_colors/font_color_shadow = Color( 0.298039, 0.419608, 0.227451, 1 )
+text = "TIPS !"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -6,7 +6,15 @@ extends Node2D
 # var b = "text"
 const boule_impulse_factor = 1.4
 const cochonet_impulse_factor = 3
-const direction_random = 50
+const direction_random = 60  #in pixels
+#distance & color to qualify a launch
+const precision_perfect = 5  
+const precision_nice = 15
+const precision_normal = 25
+const precision_perfect_color = Color (20/255.0,240/255.0,20/255.0)
+const precision_nice_color  = Color (20/255.0,200/255.0,20/255.0)
+const precision_bad_color   = Color (240/255.0,20/255.0,20/255.0)
+
 var time_until_next_wind =  randi() % 5
 var Boule     = preload ("res://Scenes/Boule.tscn")
 var Cochonet  = preload ("res://Scenes/Cochonet.tscn")
@@ -23,7 +31,7 @@ var camera_scroll_velocity = 0
 var camera_scroll_velocity_last_delta = 0
 
 var cochonet_on_field = false
-
+var showed_cochonet_lighter_tip = false #The tips has been showed
 
 var actual_cam : Camera2D
 
@@ -40,14 +48,18 @@ func _ready():
 	pass # Replace with function body.
 
 func start_level():
+	
+	$CanvasLayerGUI/LabelPrecision.text=""
+	$CanvasLayerGUI/LabelTips.text=""
+	
 	current_step = "Arrive"
 	$Path2D_Aloes/PathFollow2D.unit_offset = 0
 	$Path2D/PathFollow2D.unit_offset = 0	
 	actual_cam = $Camera2D
 	
 	############################################################ DEBUG TIME
-	current_step = "Wait_Timmy_Play"
-	Gb.BUILD_TIME = true	
+	#current_step = "Wait_Timmy_Play"
+	#Gb.BUILD_TIME = true	
 	############################################################
 	
 	if !Gb.BUILD_TIME:
@@ -92,6 +104,10 @@ func _process(delta):
 			scroll_cam()
 
 		"Timmy_Set_direction":
+			if not cochonet_on_field and not showed_cochonet_lighter_tip:
+				set_label_text_for_second ($CanvasLayerGUI/LabelTips, "Do not forget that it is lighter ...", 5.0)
+				showed_cochonet_lighter_tip = true
+			
 			if Input.is_action_just_pressed("mouse_right"):
 				viseur.queue_free()
 				current_step = "Wait_Timmy_Play"
@@ -113,7 +129,21 @@ func _process(delta):
 				final_vector.x =  viseur.selected_vector.x + x_error
 				final_vector.y =  viseur.selected_vector.y + y_error
 				print (final_vector)
+				var error_dist = final_vector.distance_to(viseur.selected_vector)
+				if error_dist<=precision_perfect:
+					set_label_text_for_second ($CanvasLayerGUI/LabelPrecision, "Perfect Precision !", 3.0)
+					$CanvasLayerGUI/LabelPrecision.add_color_override("font_color",precision_perfect_color)
+				elif error_dist<=precision_nice:
+					set_label_text_for_second ($CanvasLayerGUI/LabelPrecision, "Nice Precision !", 3.0)
+					$CanvasLayerGUI/LabelPrecision.add_color_override("font_color",precision_nice_color)
+				elif error_dist<=precision_normal:
+					$CanvasLayerGUI/LabelPrecision.text = ""
+				else:
+					set_label_text_for_second ($CanvasLayerGUI/LabelPrecision, "oHoH You miss of precision !", 3.0)
+					$CanvasLayerGUI/LabelPrecision.add_color_override("font_color",precision_bad_color)
+					
 				boule.apply_impulse(Vector2(0,0), final_vector * impulse_factor )
+				
 				self.add_child(boule)
 				for i in boule.get_child_count():
 					if boule.get_child(i) is Camera2D :
@@ -192,3 +222,19 @@ func scroll_cam_process (delta):
 	camera_scroll_offset = 0
 	if OS.get_ticks_msec() - camera_scroll_velocity_last_delta > camera_scroll_acceleration_delay_reset_ms:
 		camera_scroll_velocity = 0
+
+func set_label_text_for_second (label : Label, text : String, second : int):
+	label.text = text
+	var timer = Timer.new()
+	timer.connect("timeout",self,"_on_set_label_text_for_second_timeout", [label]) 
+	add_child(timer) #to process
+	var group_name = "set_label_text_for_second_timer_"+str(label.get_instance_id())
+	for n in get_tree().get_nodes_in_group(group_name):
+		n.queue_free()
+	timer.add_to_group(group_name)
+	timer.wait_time = second
+	timer.start() #to start
+	
+func _on_set_label_text_for_second_timeout (label):
+	label.text = ""
+	self.update()
