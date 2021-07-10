@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Fonts/Fonts-Button-actionJ.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/Options.gd" type="Script" id=2]
+[ext_resource path="res://Musics/écran de selection.wav" type="AudioStream" id=3]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -27,6 +28,11 @@ text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
+autoplay = true
 
 [connection signal="pressed" from="Button_Fullscreen" to="." method="_on_Button_Fullscreen_pressed"]
 [connection signal="pressed" from="Button_Back" to="." method="_on_Button_Back_pressed"]

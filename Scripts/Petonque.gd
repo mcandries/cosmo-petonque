@@ -5,6 +5,7 @@ class Player_info :
 	var boules_left:int = 3
 	var score:int = 0
 	var color:String = ""
+	var viseur_color = Color (0,0,0)
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -12,7 +13,7 @@ class Player_info :
 const boule_impulse_factor = 1.4
 const cochonet_impulse_factor = 3
 const direction_random = 60  #in pixels
-const score_to_win = 3
+const score_to_win = 6 ############################ DBG !!! 13
 #distance & color to qualify a launch
 const precision_perfect = 5  
 const precision_nice = 15
@@ -29,6 +30,8 @@ var cochonet
 var boule
 var ViseurP    = preload ("res://Scenes/Viseur.tscn")
 var viseur
+
+var return_to_menu_launched = false
 
 var player1_info = Player_info.new()
 var player2_info = Player_info.new()
@@ -78,7 +81,9 @@ func start_level():
 
 
 	player1_info.score = 0
-	player1_info.score = 0
+	player1_info.viseur_color = Color (85/255.0,85/255.0,255/255.0)
+	player2_info.score = 0
+	player2_info.viseur_color = Color (255/255.0,85/255.0,85/255.0)
 	_reset_round()
 		
 	$CanvasLayerGUI/Control/LabelPrecision.text=""
@@ -94,16 +99,16 @@ func start_level():
 
 	
 	############################################################ DEBUG TIME
-	current_step = "Wait_Player_Play"
-	current_step = "Select_First_Player"
-	#cochonet_on_field = true
-	Gb.BUILD_TIME = true	
+	Gb.BUILD_TIME = false
+#	current_step = "Wait_Player_Play"
+#	current_step = "Select_First_Player"
 	############################################################
-	
 	if !Gb.BUILD_TIME:
+		#cochonet_on_field = true
 		$AudioStreamPlayer.play()
-	
-	pass
+		randomize()
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -117,13 +122,13 @@ func _process(delta):
 		"Arrive":
 			$Path2D/PathFollow2D.offset +=  speed*delta
 			$Player1_AnimatedSprite.position = $Path2D/PathFollow2D.position
-			$Player1_AnimatedSprite.position = $Path2D/PathFollow2D.position
+			$Aloes_transp.position = $Path2D/PathFollow2D.position
 			if $Path2D/PathFollow2D.unit_offset >= 1:
 				current_step = "Aloes_Put"
 				
 		"Aloes_Put":
 			$Path2D_Aloes/PathFollow2D.offset +=  speed*delta
-			$Player1_AnimatedSprite.position = $Path2D_Aloes/PathFollow2D.position
+			$Aloes_transp.position = $Path2D_Aloes/PathFollow2D.position
 			if $Path2D_Aloes/PathFollow2D.unit_offset >= 1:
 				current_step = "Select_First_Player"
 				
@@ -143,6 +148,7 @@ func _process(delta):
 			if Input.is_action_just_pressed("mouse_left"):
 				$Viseur_StartPos.position = get_node("Player"+str(current_player)+"_AnimatedSprite/PlayerStartPos").global_position
 				viseur = ViseurP.instance()
+				viseur.color = current_player_info.viseur_color
 				viseur.init_pos = $Viseur_StartPos.position
 				self.add_child(viseur)
 				current_step = "Player_Set_direction"
@@ -184,15 +190,16 @@ func _process(delta):
 				if error_dist<=precision_perfect:
 					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Perfect Precision !", 3.0)
 					$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_perfect_color)
+					$AudioStreamPlayer_VoiceWhouah.play()
 				elif error_dist<=precision_nice:
 					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Nice Precision !", 3.0)
 					$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_nice_color)
-					$AudioStreamPlayer_VoiceWhouah.play()
 				elif error_dist<=precision_normal:
 					$CanvasLayerGUI/Control/LabelPrecision.text = ""
 				else:
-					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "oHoH You miss of precision !", 3.0)
+					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Ho no ! You miss of precision !", 3.0)
 					$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_bad_color)
+					$AudioStreamPlayer_VoiceINeedHealing.play()
 					
 				boule.apply_impulse(Vector2(0,0), final_vector * impulse_factor )
 				
@@ -227,7 +234,7 @@ func _process(delta):
 
 		
 		"Study_Game" :
-			
+			scroll_cam()
 			# --- conditions imbriquées / liées
 			#si je suis le plus proche et que l'autre à encore des boules, à lui
 			if _closest_player() == current_player and other_player_info.boules_left>=1  : 
@@ -247,33 +254,40 @@ func _process(delta):
 			# --- si on arrive ici, fin de manche
 			var round_winner_number = _closest_player()
 			players_info[round_winner_number-1].score += _closest_player_boules().size()
-			if players_info[round_winner_number-1].score>score_to_win:
+			if players_info[round_winner_number-1].score>=score_to_win:
 				players_info[round_winner_number-1].score = score_to_win
+			else : 
+				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Player "+str(round_winner_number)+" win this round with " + str(_closest_player_boules().size()) + " points !",4)
+				if round_winner_number == 1:
+					$AudioStreamPlayer_VoiceApplause.play()
+				_audioread_score()				
+				_reset_round()
+			
 			_update_score_show()
-			_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Player "+str(round_winner_number)+" win this round with " + str(_closest_player_boules().size()) + " points !",4)
-			if round_winner_number ==1:
-				$AudioStreamPlayer_VoiceApplause.play()
-			_audioread_score()
-			_reset_round()
+
 			if round_winner_number == current_player:
 				current_step = "Swap_Player_Pos"
 			else:
 				current_step = "Wait_Player_Play"
 
+			if player1_info.score>=(score_to_win/10.0)*8:
+				$AudioStreamPlayer_VoiceTimmyTimmy.play()
+
 			if player1_info.score>=score_to_win:
 				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You win !",4)
 				$AudioStreamPlayer_VoiceVictory.play()
-				start_level()
+				current_step = "Return_To_Menu"
 				continue
 				
 			if player2_info.score>=score_to_win:
 				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You loose !",4)
+				_show_animated_sprite_for_second ($CanvasLayerGUI/DefeatSprite,4)
 				$AudioStreamPlayer_VoiceDefeat.play()
-				start_level()
+				current_step = "Return_To_Menu"
 				continue
-
 			
 		"Swap_Player_Pos":
+			scroll_cam()
 			var all_ok = true
 			
 			if not (current_player_path_follow.unit_offset <= 0):
@@ -285,12 +299,29 @@ func _process(delta):
 				other_player_path_follow.offset +=  speed*delta
 				other_player_animated_sprite.position = other_player_path_follow.position
 				all_ok = false
+			else : 
+				var my_array = Array(other_player_animated_sprite.frames.get_animation_names())
+				if my_array.has("ready_battle"):
+					other_player_animated_sprite.animation = "ready_battle"
 				
 			if all_ok: 
 				_set_player(_inverse_player_number(current_player))
 				current_step = "Wait_Player_Play"
-
+			
 		
+		"Return_To_Menu":
+		
+			if not return_to_menu_launched:
+				return_to_menu_launched = true
+#				var timer = Timer.new()
+#				timer.second = 5
+#				timer.connect("timeout","_on___return_to_menu")
+#				add_child(timer)
+#				timer.start()
+				yield(get_tree().create_timer(4.0), "timeout")
+				get_tree().change_scene("res://Menu.tscn")
+				
+				
 	
 			
 	scroll_cam_process(delta)
@@ -465,7 +496,7 @@ func _on__set_label_text_for_second_timeout (label):
 	self.update()
 
 func _audioread_number(number):
-	number = clamp(number,1,13)
+	number = clamp(number,0,13)
 	var audio_file = load ("res://Voices-Line/"+str(number)+".mp3")
 	audio_file.set_loop(false)
 	$AudioStreamPlayer_VoiceNumber.stream = audio_file
@@ -484,3 +515,21 @@ func _audioread_score():
 func _on___audioread_score_timeout (score):
 	_audioread_number(score)
 	
+func _on_Player1_AnimatedSprite_animation_finished():
+	$Player1_AnimatedSprite.animation = "idle_front"
+	
+func _on_Player2_AnimatedSprite_animation_finished():
+	$Player2_AnimatedSprite.animation = "idle_front"
+
+
+func _show_animated_sprite_for_second(sprite, second):
+	sprite.visible = true
+	var timer = Timer.new()
+	timer.connect("timeout",self,"_on___show_animated_sprite_for_second_timeout", [sprite]) 
+	add_child(timer) #to process
+	timer.wait_time = second
+	timer.one_shot = true
+	timer.start()
+
+func _on___show_animated_sprite_for_second_timeout(sprite):
+	sprite.visible = false

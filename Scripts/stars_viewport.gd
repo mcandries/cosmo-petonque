@@ -1,4 +1,4 @@
-extends Node2D
+extends Viewport
 
 
 # Declare member variables here. Examples:
@@ -8,10 +8,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#OS.set_window_size(Vector2(320*4, 200*4))
-	$TextureRect.rect_size = OS.window_size
-	$Viewport.size = Vector2 (320, 200)
-	$TextureRect.texture = $Viewport.get_texture()
+	VisualServer.set_default_clear_color(Color(0,0,0))
+	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
