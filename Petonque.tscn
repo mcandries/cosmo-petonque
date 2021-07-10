@@ -1,8 +1,8 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://TileSet/Petonque_Tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Arts/Tree1.2.png" type="Texture" id=2]
-[ext_resource path="res://Arts/Timmy_transp.png" type="Texture" id=3]
+[ext_resource path="res://Arts/Timmy2-Sheet.png" type="Texture" id=3]
 [ext_resource path="res://Arts/tileable_grass_00.png" type="Texture" id=4]
 [ext_resource path="res://Arts/boule2.png" type="Texture" id=5]
 [ext_resource path="res://Arts/boule3.png" type="Texture" id=6]
@@ -13,21 +13,32 @@
 [ext_resource path="res://Arts/FLOWER1-Sheet.png" type="Texture" id=11]
 [ext_resource path="res://Musics/boostiooooo v2.wav" type="AudioStream" id=12]
 [ext_resource path="res://Fonts/WorldWorstFont.tres" type="DynamicFont" id=13]
-[ext_resource path="res://Fonts/TTF/PoetsenOne-Regular.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://Fonts/Fonts-PoetsenOne-25.tres" type="DynamicFont" id=14]
+[ext_resource path="res://Fonts/Fonts-PoetsenOne.tres" type="DynamicFont" id=15]
+[ext_resource path="res://Arts/Project pétanque _pedro_.png" type="Texture" id=16]
+[ext_resource path="res://Voices-Line/Victory.mp3" type="AudioStream" id=17]
+[ext_resource path="res://Voices-Line/Defeat.mp3" type="AudioStream" id=18]
+[ext_resource path="res://Voices-Line/Applaudissements.mp3" type="AudioStream" id=19]
+[ext_resource path="res://Voices-Line/Whouah.mp3" type="AudioStream" id=20]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -44.9606, -41.3132, -133.086, -37.755, 133.086, 37.755, 110.241, 91.8108, -30.8677, -11.7859, 30.8677, 11.7859, 319.019, 149.056, 0, 0, 0, 0, 363.117, 198.818 )
+"points": PoolVector2Array( 0, 0, 0, 0, -44.9606, -41.3132, -133.086, -37.755, 133.086, 37.755, 110.241, 91.8108, -30.8677, -11.7859, 30.8677, 11.7859, 319.019, 149.056, 0, 0, 0, 0, 369.617, 199.416 )
 }
 
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 362.966, 197.662, 8.9797, -7.296, -8.9797, 7.296, 328.731, 211.693, 0, 0, 0, 0, 304.598, 235.265 )
+"points": PoolVector2Array( 0, 0, 0, 0, 369.469, 199.416, 8.9797, -7.296, -8.9797, 7.296, 336.19, 216.761, 0, 0, 0, 0, 323.69, 257.386 )
+}
+
+[sub_resource type="Curve2D" id=24]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 664.736, 191.324, 0, 0, 0, 0, 626.573, 345.101, 0, 0, 0, 0, 512.082, 383.826 )
 }
 
 [sub_resource type="Curve2D" id=3]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 364.088, 198.785, -14.592, -11.2246, 14.592, 11.2246, 408.987, 336.286, 0, 0, 0, 0, 472.406, 356.491 )
+"points": PoolVector2Array( 0, 0, 0, 0, 369.617, 198.97, -14.592, -11.2246, 14.592, 11.2246, 408.987, 336.286, 0, 0, 0, 0, 511.188, 384.387 )
 }
 
 [sub_resource type="AtlasTexture" id=4]
@@ -58,19 +69,93 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 167.801, 661.664 )
 
-[sub_resource type="DynamicFont" id=9]
-size = 18
-font_data = ExtResource( 14 )
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 400, 400 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 400, 400, 400 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 1.0
+} ]
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 448, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 512, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 576, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 640, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=23]
+animations = [ {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "walk_side",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "idle_side",
+"speed": 1.0
+}, {
+"frames": [ SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "idle_front",
+"speed": 1.0
+} ]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 9 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = -61.3265
-margin_top = -26.4285
-margin_right = 2190.67
-margin_bottom = 3544.57
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = -256.0
+margin_top = -256.0
+margin_right = 7244.0
+margin_bottom = 9936.0
+rect_scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 4 )
 stretch_mode = 2
 __meta__ = {
@@ -78,12 +163,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="Grass" type="TileMap" parent="."]
-format = 1
-
 [node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 32, 0 )
 tile_set = ExtResource( 1 )
 format = 1
 tile_data = PoolIntArray( 262149, 0, 0, 262150, 0, 1, 262151, 0, 1, 262152, 0, 1, 262153, 0, 2, 327685, 0, 65536, 327686, 0, 65537, 327687, 0, 65537, 327688, 0, 65537, 327689, 0, 65538, 393221, 0, 65536, 393222, 0, 65537, 393223, 0, 65537, 393224, 0, 65537, 393225, 0, 65538, 458757, 0, 65536, 458758, 0, 65537, 458759, 0, 65537, 458760, 0, 65537, 458761, 0, 65538, 524293, 0, 65536, 524294, 0, 65537, 524295, 0, 65537, 524296, 0, 65537, 524297, 0, 65538, 589829, 0, 65536, 589830, 0, 65537, 589831, 0, 65537, 589832, 0, 65537, 589833, 0, 65538, 655365, 0, 65536, 655366, 0, 65537, 655367, 0, 65537, 655368, 0, 65537, 655369, 0, 65538, 720901, 0, 65536, 720902, 0, 65537, 720903, 0, 65537, 720904, 0, 65537, 720905, 0, 65538, 786437, 0, 65536, 786438, 0, 65537, 786439, 0, 65537, 786440, 0, 65537, 786441, 0, 65538, 851973, 0, 65536, 851974, 0, 65537, 851975, 0, 65537, 851976, 0, 65537, 851977, 0, 65538, 917509, 0, 65536, 917510, 0, 65537, 917511, 0, 65537, 917512, 0, 65537, 917513, 0, 65538, 983045, 0, 65536, 983046, 0, 65537, 983047, 0, 65537, 983048, 0, 65537, 983049, 0, 65538, 1048581, 0, 65536, 1048582, 0, 65537, 1048583, 0, 65537, 1048584, 0, 65537, 1048585, 0, 65538, 1114117, 0, 65536, 1114118, 0, 65537, 1114119, 0, 65537, 1114120, 0, 65537, 1114121, 0, 65538, 1179653, 0, 65536, 1179654, 0, 65537, 1179655, 0, 65537, 1179656, 0, 65537, 1179657, 0, 65538, 1245189, 0, 65536, 1245190, 0, 65537, 1245191, 0, 65537, 1245192, 0, 65537, 1245193, 0, 65538, 1310725, 0, 65536, 1310726, 0, 65537, 1310727, 0, 65537, 1310728, 0, 65537, 1310729, 0, 65538, 1376261, 0, 65536, 1376262, 0, 65537, 1376263, 0, 65537, 1376264, 0, 65537, 1376265, 0, 65538, 1441797, 0, 65536, 1441798, 0, 65537, 1441799, 0, 65537, 1441800, 0, 65537, 1441801, 0, 65538, 1507333, 0, 131072, 1507334, 0, 131073, 1507335, 0, 131073, 1507336, 0, 131073, 1507337, 0, 131074 )
@@ -94,18 +175,14 @@ scale = Vector2( 1.46965, 1.46965 )
 texture = ExtResource( 2 )
 
 [node name="Tree14" type="Sprite" parent="."]
-position = Vector2( 203.537, 1356.07 )
+position = Vector2( 228.51, 1279.96 )
 scale = Vector2( 1.28174, 1.28174 )
 texture = ExtResource( 2 )
 
 [node name="Tree13" type="Sprite" parent="."]
-position = Vector2( 820.233, 860.198 )
+position = Vector2( 822.611, 885.171 )
 scale = Vector2( 1.58544, 1.58544 )
 texture = ExtResource( 2 )
-
-[node name="Timmy_transp" type="Sprite" parent="."]
-position = Vector2( 364.206, 198.147 )
-texture = ExtResource( 3 )
 
 [node name="Node2D2" type="Node2D" parent="."]
 scale = Vector2( 0.25, 0.25 )
@@ -142,73 +219,120 @@ texture = ExtResource( 10 )
 offset = Vector2( 20, 80 )
 
 [node name="Path2D_Aloes" type="Path2D" parent="."]
+position = Vector2( 44.3451, 5.92801 )
+scale = Vector2( 0.879976, 0.976982 )
 curve = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D_Aloes"]
-position = Vector2( 362.966, 197.662 )
+position = Vector2( 369.469, 199.416 )
 rotation = 2.8636
 rotate = false
 loop = false
 
-[node name="Path2D_Terrain" type="Path2D" parent="."]
+[node name="Path2D_Terrain_Player2" type="Path2D" parent="."]
+position = Vector2( 0, 1 )
+curve = SubResource( 24 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D_Terrain_Player2"]
+position = Vector2( 664.736, 191.324 )
+rotate = false
+loop = false
+
+[node name="Path2D_Terrain_Player1" type="Path2D" parent="."]
 curve = SubResource( 3 )
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D_Terrain"]
-position = Vector2( 364.088, 198.785 )
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D_Terrain_Player1"]
+position = Vector2( 369.617, 198.97 )
 rotation = 1.33179
 rotate = false
 loop = false
 
-[node name="Flower1" type="AnimatedSprite" parent="." groups=[
-"flowers",
-]]
-position = Vector2( 662.983, 277.085 )
-frames = SubResource( 7 )
-animation = "Default"
+[node name="Flowers" type="Node2D" parent="."]
+position = Vector2( 791.253, 312.541 )
 
-[node name="Flower2" type="AnimatedSprite" parent="." groups=[
+[node name="Flower1" type="AnimatedSprite" parent="Flowers" groups=[
 "flowers",
 ]]
-position = Vector2( 693.902, 283.626 )
+position = Vector2( -14.8492, -24.0417 )
 frames = SubResource( 7 )
 animation = "Default"
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Flower5" type="AnimatedSprite" parent="." groups=[
+[node name="Flower4" type="AnimatedSprite" parent="Flowers" groups=[
 "flowers",
 ]]
-position = Vector2( 722.443, 276.49 )
+position = Vector2( 9.89948, -18.3848 )
 frames = SubResource( 7 )
 animation = "Default"
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Flower3" type="AnimatedSprite" parent="." groups=[
+[node name="Flower3" type="AnimatedSprite" parent="Flowers" groups=[
 "flowers",
 ]]
-position = Vector2( 677.253, 301.464 )
+position = Vector2( 28.2844, -18.3848 )
 frames = SubResource( 7 )
 animation = "Default"
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Flower4" type="AnimatedSprite" parent="." groups=[
+[node name="Flower2" type="AnimatedSprite" parent="Flowers" groups=[
 "flowers",
 ]]
-position = Vector2( 711.146, 300.869 )
+position = Vector2( -5.6568, -0.707092 )
 frames = SubResource( 7 )
 animation = "Default"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Flower5" type="AnimatedSprite" parent="Flowers" groups=[
+"flowers",
+]]
+position = Vector2( 18.3848, 2.12131 )
+frames = SubResource( 7 )
+animation = "Default"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AudioStreamPlayer_VoiceWhouah" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+
+[node name="AudioStreamPlayer_VoiceNumber" type="AudioStreamPlayer" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
 
+[node name="AudioStreamPlayer_VoiceVictory" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+
+[node name="AudioStreamPlayer_VoiceApplause" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+
+[node name="AudioStreamPlayer_VoiceDefeat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+
 [node name="Viseur_StartPos" type="Node2D" parent="."]
-position = Vector2( 473.58, 373.461 )
+position = Vector2( 512.876, 405.178 )
 
 [node name="Gravier_Area" type="Area2D" parent="."]
+visible = false
 position = Vector2( 472.252, 400.819 )
 space_override = 3
 gravity_vec = Vector2( 0, 0 )
 gravity = 0.0
 linear_damp = 1.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gravier_Area"]
-position = Vector2( 11.7888, 492.897 )
+position = Vector2( 37.9513, 505.978 )
 shape = SubResource( 8 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -226,11 +350,89 @@ editor_draw_limits = true
 
 [node name="CanvasLayerGUI" type="CanvasLayer" parent="."]
 
-[node name="LabelPrecision" type="Label" parent="CanvasLayerGUI"]
-margin_left = 364.315
-margin_top = 106.535
-margin_right = 605.315
-margin_bottom = 143.535
+[node name="P1B1" type="Sprite" parent="CanvasLayerGUI"]
+position = Vector2( 190.553, 16.5483 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 7 )
+
+[node name="P1B2" type="Sprite" parent="CanvasLayerGUI"]
+position = Vector2( 221.397, 16.5483 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 7 )
+
+[node name="P1B3" type="Sprite" parent="CanvasLayerGUI"]
+position = Vector2( 252.181, 16.5483 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 7 )
+
+[node name="P2B1" type="Sprite" parent="CanvasLayerGUI"]
+position = Vector2( 843.769, 17.2974 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 6 )
+
+[node name="P2B2" type="Sprite" parent="CanvasLayerGUI"]
+position = Vector2( 812.044, 17.2974 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 6 )
+
+[node name="P2B3" type="Sprite" parent="CanvasLayerGUI"]
+position = Vector2( 780.141, 17.2974 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 6 )
+
+[node name="Control" type="Control" parent="CanvasLayerGUI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -512.0
+margin_right = 512.0
+margin_bottom = 599.973
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="LabelScore" type="Label" parent="CanvasLayerGUI/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -26.5
+margin_right = 26.5
+margin_bottom = 29.0
+grow_horizontal = 2
+rect_pivot_offset = Vector2( 26.5816, 21.2707 )
+custom_fonts/font = ExtResource( 14 )
+text = "0 - 0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="LabelTips" type="Label" parent="CanvasLayerGUI/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -25.0
+margin_top = 56.0
+margin_right = 25.0
+margin_bottom = 80.0
+grow_horizontal = 2
+custom_fonts/font = ExtResource( 15 )
+custom_colors/font_color = Color( 0.0862745, 0.0745098, 0.0745098, 1 )
+custom_colors/font_color_shadow = Color( 0.298039, 0.419608, 0.227451, 1 )
+text = "TIPS !"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelPrecision" type="Label" parent="CanvasLayerGUI/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -66.0
+margin_top = 92.0
+margin_right = 66.0
+margin_bottom = 109.0
+grow_horizontal = 2
 custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0.137255, 0.137255, 0.137255, 1 )
 custom_colors/font_color_shadow = Color( 0.694118, 0.568627, 0, 1 )
@@ -241,19 +443,42 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LabelTips" type="Label" parent="CanvasLayerGUI"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -337.0
-margin_top = 36.0
-margin_right = 280.0
-margin_bottom = 75.0
-custom_fonts/font = SubResource( 9 )
-custom_colors/font_color = Color( 0.0862745, 0.0745098, 0.0745098, 1 )
-custom_colors/font_color_shadow = Color( 0.298039, 0.419608, 0.227451, 1 )
-text = "TIPS !"
+[node name="LabelMainMessage" type="Label" parent="CanvasLayerGUI/Control"]
+anchor_left = 0.497413
+anchor_top = 0.47678
+anchor_right = 0.497413
+anchor_bottom = 0.47678
+margin_left = -26.5
+margin_right = 26.5
+margin_bottom = 29.0
+grow_horizontal = 2
+rect_pivot_offset = Vector2( 26.5816, 21.2707 )
+custom_fonts/font = ExtResource( 14 )
+text = "MainMesage"
 align = 1
 valign = 1
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
+
+[node name="Player2_AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 666.742, 189.696 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 11 )
+frame = 1
+playing = true
+
+[node name="PlayerStartPos" type="Node2D" parent="Player2_AnimatedSprite"]
+position = Vector2( -105.946, -85.8165 )
+
+[node name="Player1_AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 363.645, 198.97 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 23 )
+animation = "idle_front"
+frame = 1
+playing = true
+offset = Vector2( 0, -0.411354 )
+
+[node name="PlayerStartPos" type="Node2D" parent="Player1_AnimatedSprite"]
+position = Vector2( 10.3298, 13.2433 )

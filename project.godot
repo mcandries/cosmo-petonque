@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "BouleC",
+"language": "GDScript",
+"path": "res://Scripts/Boule.gd"
+} ]
+_global_script_class_icons={
+"BouleC": ""
+}
+
 [application]
 
 config/name="CosmoPetonque"
