@@ -11,5 +11,5 @@ dest_files=[ "res://.import/boules en mains.mp3-67d021cf0f52b2c455167fcfde25a5f2
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

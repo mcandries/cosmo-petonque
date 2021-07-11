@@ -74,15 +74,14 @@ __meta__ = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
-volume_db = -10.0
-autoplay = true
+volume_db = -15.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 139, 519 )
 scale = Vector2( 2.5, 2.5 )
 frames = ExtResource( 5 )
 animation = "walk_side"
-frame = 5
+frame = 6
 playing = true
 
 [connection signal="pressed" from="Label/Button_Play" to="." method="_on_Button_Play_pressed"]

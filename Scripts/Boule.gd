@@ -10,6 +10,7 @@ export var player_number : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$AudioStreamPlayer_Boule_tape.volume_db = Gb.P_Volume_Sound
 	if player_number == 1 : 
 		$boule2.visible = false
 	else:

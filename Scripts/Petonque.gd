@@ -73,7 +73,15 @@ var current_step = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#OS.window_fullscreen = !OS.window_fullscreen
+	$AudioStreamPlayer_Music.volume_db = Gb.P_Volume_Music
+	$AudioStreamPlayer_VoiceApplause.volume_db = Gb.P_Volume_Voice
+	$AudioStreamPlayer_VoiceDefeat.volume_db = Gb.P_Volume_Voice
+	$AudioStreamPlayer_VoiceINeedHealing.volume_db = Gb.P_Volume_Voice
+	$AudioStreamPlayer_VoiceNumber.volume_db = Gb.P_Volume_Voice
+	$AudioStreamPlayer_VoiceTimmyTimmy.volume_db = Gb.P_Volume_Voice
+	$AudioStreamPlayer_VoiceVictory.volume_db = Gb.P_Volume_Voice
+	$AudioStreamPlayer_VoiceWhouah.volume_db = Gb.P_Volume_Voice
+	
 	start_level()
 	pass # Replace with function body.
 
@@ -105,7 +113,7 @@ func start_level():
 	############################################################
 	if !Gb.BUILD_TIME:
 		#cochonet_on_field = true
-		$AudioStreamPlayer.play()
+		$AudioStreamPlayer_Music.play()
 		randomize()
 
 
@@ -349,6 +357,7 @@ func _reset_round():
 	if cochonet != null:
 		cochonet.queue_free()
 	cochonet_on_field = false
+	showed_cochonet_lighter_tip = false
 		
 	for b in get_tree().get_nodes_in_group("boules"):
 		b.queue_free()

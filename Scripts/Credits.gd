@@ -8,6 +8,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$AudioStreamPlayer.volume_db = Gb.P_Volume_Music
 	pass # Replace with function body.
 
 
