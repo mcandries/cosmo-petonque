@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://TileSet/Petonque_Tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Arts/Tree1.2.png" type="Texture" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://Voices-Line/I need Healing.mp3" type="AudioStream" id=24]
 [ext_resource path="res://Voices-Line/TIMMY TIMMY TIMMY.mp3" type="AudioStream" id=25]
 [ext_resource path="res://Arts/Project pétanque _crâne_.png" type="Texture" id=26]
+[ext_resource path="res://Fonts/Fonts-PoetsenOne-14.tres" type="DynamicFont" id=27]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -494,7 +495,7 @@ texture = ExtResource( 6 )
 visible = false
 position = Vector2( 509.327, 400.672 )
 frames = SubResource( 22 )
-frame = 5
+frame = 3
 playing = true
 
 [node name="Control" type="Control" parent="CanvasLayerGUI"]
@@ -578,6 +579,26 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="LabelControlHelp" type="Label" parent="CanvasLayerGUI/Control"]
+anchor_left = 0.812012
+anchor_top = 0.870039
+anchor_right = 0.978027
+anchor_bottom = 0.950043
+margin_left = -26.5
+margin_right = 26.5
+margin_bottom = 29.0
+grow_horizontal = 2
+rect_pivot_offset = Vector2( 26.5816, 21.2707 )
+custom_fonts/font = ExtResource( 27 )
+text = "Mouse Wheel : Scroll Field
+Mouse Left Click : Aim + Shoot
+Mouse Right Click : Cancel Aim"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="Player2_AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 666.742, 189.696 )
 scale = Vector2( 0.5, 0.5 )
@@ -610,14 +631,14 @@ offset = Vector2( 20, 80 )
 position = Vector2( 853.295, 1569.46 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Chat" type="AnimatedSprite" parent="."]
 position = Vector2( 232.612, 557.745 )
 scale = Vector2( 0.479338, 0.479338 )
 frames = SubResource( 42 )
-frame = 2
+frame = 3
 playing = true
 
 [connection signal="animation_finished" from="Player2_AnimatedSprite" to="." method="_on_Player2_AnimatedSprite_animation_finished"]
