@@ -92,6 +92,7 @@ func start_level():
 	player1_info.viseur_color = Color (85/255.0,85/255.0,255/255.0)
 	player2_info.score = 0
 	player2_info.viseur_color = Color (255/255.0,85/255.0,85/255.0)
+	_update_score_show()
 	_reset_round()
 			
 	$CanvasLayerGUI/Control/LabelPrecision.text=""
@@ -525,7 +526,7 @@ func _set_player (number):
 	other_player_info = players_info[other_player-1]
 
 func _update_score_show():
-	$CanvasLayerGUI/Control/LabelScore.text = str (player1_info.score) + " - " + str (player2_info.score)
+	$CanvasLayerGUI/Control/LabelScore.text = str (player1_info.score) + "/" + str (score_to_win) + " - " + str (player2_info.score) + "/" + str (score_to_win)
 
 			
 func move_flower(delta):
