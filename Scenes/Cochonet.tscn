@@ -10,6 +10,8 @@ radius = 3.25772
 [node name="RigidBody2D" type="RigidBody2D"]
 mass = 0.02
 physics_material_override = ExtResource( 2 )
+contacts_reported = 50
+contact_monitor = true
 script = ExtResource( 3 )
 
 [node name="cochonnet1" type="Sprite" parent="."]
@@ -22,3 +24,5 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 0
 smoothing_enabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_RigidBody2D_body_entered"]

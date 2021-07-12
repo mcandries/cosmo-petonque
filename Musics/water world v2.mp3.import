@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/water world v2.mp3-96020ea2cfaca8f6bfa279c3f207bada.mp3str"
+
+[deps]
+
+source_file="res://Musics/water world v2.mp3"
+dest_files=[ "res://.import/water world v2.mp3-96020ea2cfaca8f6bfa279c3f207bada.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -81,7 +81,6 @@ position = Vector2( 139, 519 )
 scale = Vector2( 2.5, 2.5 )
 frames = ExtResource( 5 )
 animation = "walk_side"
-frame = 5
 playing = true
 
 [connection signal="pressed" from="Label/Button_Play" to="." method="_on_Button_Play_pressed"]

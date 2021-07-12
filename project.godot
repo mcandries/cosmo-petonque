@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "BouleC",
 "language": "GDScript",
 "path": "res://Scripts/Boule.gd"
+}, {
+"base": "RigidBody2D",
+"class": "CochonetC",
+"language": "GDScript",
+"path": "res://Scripts/Cochonet.gd"
 } ]
 _global_script_class_icons={
-"BouleC": ""
+"BouleC": "",
+"CochonetC": ""
 }
 
 [application]

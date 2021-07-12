@@ -12,7 +12,7 @@ class Player_info :
 # var b = "text"
 const boule_impulse_factor = 1.4
 const cochonet_impulse_factor = 3
-const direction_random = 60  #in pixels
+var  direction_random = 60  #in pixels
 const score_to_win = 6 ############################ DBG !!! 13
 #distance & color to qualify a launch
 const precision_perfect = 5  
@@ -27,9 +27,11 @@ var time_until_next_wind =  randi() % 5
 var BouleP    = preload ("res://Scenes/Boule.tscn")
 var CochonetP = preload ("res://Scenes/Cochonet.tscn")
 var cochonet
+var cochonet_last_launcher
 var boule
 var ViseurP    = preload ("res://Scenes/Viseur.tscn")
 var viseur
+var cochonet_out_of_field_detected = false
 
 var return_to_menu_launched = false
 
@@ -86,35 +88,35 @@ func _ready():
 	pass # Replace with function body.
 
 func start_level():
-
-
 	player1_info.score = 0
 	player1_info.viseur_color = Color (85/255.0,85/255.0,255/255.0)
 	player2_info.score = 0
 	player2_info.viseur_color = Color (255/255.0,85/255.0,85/255.0)
 	_reset_round()
-		
+			
 	$CanvasLayerGUI/Control/LabelPrecision.text=""
 	$CanvasLayerGUI/Control/LabelTips.text=""
 	$CanvasLayerGUI/Control/LabelMainMessage.text=""
 	_hide_all_GUI_boules()
-		
+	
+	$Anchor_Field_Start.visible = false
+	
 	current_step = "Arrive"
 	$Path2D_Aloes/PathFollow2D.unit_offset = 0
 	$Path2D/PathFollow2D.unit_offset = 0	
 	actual_cam = $Camera2D
-
-
 	
 	############################################################ DEBUG TIME
-	Gb.BUILD_TIME = false
+	Gb.BUILD_TIME = true
 #	current_step = "Wait_Player_Play"
-#	current_step = "Select_First_Player"
+	current_step = "Select_First_Player"
 	############################################################
 	if !Gb.BUILD_TIME:
 		#cochonet_on_field = true
 		$AudioStreamPlayer_Music.play()
 		randomize()
+	else :
+		direction_random = 1
 
 
 
@@ -125,6 +127,45 @@ func _process(delta):
 		get_tree().change_scene("res://Menu.tscn")
 
 	move_flower(delta)
+
+	$Anchor_Field_Start.visible = false
+	$Anchor_Field_Start.visible = false
+
+
+	if cochonet_out_of_field_detected: #Le cochonet viens de sortir du terrain :
+		cochonet_out_of_field_detected = false
+		var tmp_winner
+		if  (player1_info.boules_left == 0) or (player2_info.boules_left == 0): #Only if one of the two players have 0 boules left
+			if player1_info.boules_left >=1  and player2_info.boules_left ==0:
+				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Cochonet go out of field ! Player 1 get " + str (player1_info.boules_left) + " points", 5)
+				player1_info.score += player1_info.boules_left
+				tmp_winner = 1
+			if player1_info.boules_left == 0 and player2_info.boules_left >=1:
+				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Cochonet go out of field ! Player 2 get " + str (player2_info.boules_left) + " points", 5)
+				player2_info.score += player2_info.boules_left
+				tmp_winner = 2
+			_update_score_show()
+			if player1_info.boules_left == 0 and player2_info.boules_left ==0:
+				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Null round !", 5)
+				tmp_winner = current_player #to make them swap
+			if check_if_endgame():
+				current_step = "Return_To_Menu"
+			else:
+				_reset_round()
+				if tmp_winner == current_player:
+					current_step = "Swap_Player_Pos"
+				else:
+					current_step = "Wait_Player_Play"
+		else: #Les deux en ont encore ? Dans ce cs il faut faire relancer le cochonet au dernier qui l'a lancé
+			cochonet.queue_free()
+			cochonet_on_field = false
+			_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Cochonet go out of field ! Last cochonet launcher relaunch-it !", 5)
+			_reset_cam_to_player()
+			if cochonet_last_launcher != current_player:
+				current_step = "Swap_Player_Pos"
+			else:
+				current_step = "Wait_Player_Play"
+		
 
 	match current_step:
 		"Arrive":
@@ -153,6 +194,9 @@ func _process(delta):
 				current_step = "Wait_Player_Play"
 		
 		"Wait_Player_Play":
+			if not cochonet_on_field:
+				$Anchor_Field_Start.visible = true
+
 			if Input.is_action_just_pressed("mouse_left"):
 				$Viseur_StartPos.position = get_node("Player"+str(current_player)+"_AnimatedSprite/PlayerStartPos").global_position
 				viseur = ViseurP.instance()
@@ -167,6 +211,9 @@ func _process(delta):
 			if not cochonet_on_field and not showed_cochonet_lighter_tip:
 				_set_label_text_for_second ($CanvasLayerGUI/Control/LabelTips, "Do not forget that it is lighter ...", 5.0)
 				showed_cochonet_lighter_tip = true
+
+			if not cochonet_on_field:
+				$Anchor_Field_Start.visible = true
 			
 			if Input.is_action_just_pressed("mouse_right"):
 				viseur.queue_free()
@@ -178,7 +225,9 @@ func _process(delta):
 					boule = CochonetP.instance() 
 					cochonet = boule
 					cochonet_on_field = true
+					cochonet_last_launcher = current_player
 					impulse_factor = cochonet_impulse_factor
+					cochonet.connect("out_of_field",self, "_on___cochonet_out_of_field")
 				else:
 					boule = BouleP.instance()
 					boule.player_number = current_player
@@ -223,31 +272,50 @@ func _process(delta):
 			scroll_cam()
 			
 		"Rolling_Boule" :
+			if boule is CochonetC:
+				$Anchor_Field_Start.visible = true
+
 			if boule.sleeping:
-				if boule is BouleC:
-					var closest_player = _closest_player()
-					for b in _closest_player_boules():
-						b.show_circle(players_info[closest_player-1].color, 2)
-					current_step = "Showing_Closest_Boules"
-				else: #on  joue le cochonet acutellement
-					_reset_cam_to_player()
-					current_step = "Wait_Player_Play"
+				show_nearest_boule_circle()
+				current_step = "Showing_Closest_Boules"
+				if not (boule is BouleC): #on  joue le cochonet acutellement
+					var dist_tmp
+					dist_tmp = boule.position.y - $Anchor_Field_Start.position.y
+					if dist_tmp<600 or dist_tmp>1000:
+						_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Cochonet is out of limit (must be between 6 meters and 10 meters)", 5)
+						boule.queue_free()
+						cochonet_on_field = false
+						_reset_cam_to_player()
+						current_step = "Wait_Player_Play"
+					dist_tmp = abs(boule.position.x - $Anchor_Field_Start.position.x)
+					if dist_tmp>200:
+						_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Cochonet is too close from border", 5)
+						boule.queue_free()
+						cochonet_on_field = false
+						_reset_cam_to_player()
+						current_step = "Wait_Player_Play"
 
 		"Showing_Closest_Boules":
-			closest_boules_time += delta
-			if closest_boules_time >= closest_boules_delay:
-				closest_boules_time = 0
+			if get_tree().get_nodes_in_group("boules").size()==0: # si pas de boules sur le terrain :
 				_reset_cam_to_player()
-				current_step = "Study_Game"
+				current_step = "Study_Game" # on n'attend pas
+			else : 
+				closest_boules_time += delta
+				if closest_boules_time >= closest_boules_delay:
+					closest_boules_time = 0
+					_reset_cam_to_player()
+					current_step = "Study_Game"
 
 		
 		"Study_Game" :
 			scroll_cam()
+			
 			# --- conditions imbriquées / liées
 			#si je suis le plus proche et que l'autre à encore des boules, à lui
-			if _closest_player() == current_player and other_player_info.boules_left>=1  : 
-				current_step = "Swap_Player_Pos"
-				continue
+			if not _closest_player() == null: #pour ne pas tester ce cas s'il n'y a que le cochonet sur la piste
+				if _closest_player() == current_player and other_player_info.boules_left>=1  : 
+					current_step = "Swap_Player_Pos"
+					continue
 			
 			#sinon si j'ai encore des boules, à moi
 			if current_player_info.boules_left>=1:
@@ -278,21 +346,9 @@ func _process(delta):
 			else:
 				current_step = "Wait_Player_Play"
 
-			if player1_info.score>=(score_to_win/10.0)*8:
-				$AudioStreamPlayer_VoiceTimmyTimmy.play()
-
-			if player1_info.score>=score_to_win:
-				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You win !",4)
-				$AudioStreamPlayer_VoiceVictory.play()
+			if check_if_endgame():
 				current_step = "Return_To_Menu"
-				continue
 				
-			if player2_info.score>=score_to_win:
-				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You loose !",4)
-				_show_animated_sprite_for_second ($CanvasLayerGUI/DefeatSprite,4)
-				$AudioStreamPlayer_VoiceDefeat.play()
-				current_step = "Return_To_Menu"
-				continue
 			
 		"Swap_Player_Pos":
 			scroll_cam()
@@ -337,6 +393,29 @@ func _process(delta):
 	_show_GUI_boules(2, player2_info.boules_left)
 	pass
 
+func show_nearest_boule_circle():
+	var closest_player = _closest_player()
+	for b in _closest_player_boules():
+		b.show_circle(players_info[closest_player-1].color, 2)
+
+func check_if_endgame() -> bool:
+	if player1_info.score>=(score_to_win/10.0)*8:
+		$AudioStreamPlayer_VoiceTimmyTimmy.play()
+
+	if player1_info.score>=score_to_win:
+		_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You win !",4)
+		$AudioStreamPlayer_VoiceVictory.play()
+		return true
+		
+	if player2_info.score>=score_to_win:
+		_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You loose !",4)
+		_show_animated_sprite_for_second ($CanvasLayerGUI/DefeatSprite,4)
+		$AudioStreamPlayer_VoiceDefeat.play()
+		current_step = "Return_To_Menu"
+		return true
+	
+	return false
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		Gb.mouse_pos = event.position
@@ -344,23 +423,28 @@ func _input(event):
 	scroll_cam_input(event)
 
 func _reset_cam_to_player():
-	actual_cam.current = false
+#	if actual_cam != null:
+#		actual_cam.current = false
+	actual_cam = $Camera2D
 	$Camera2D.current = true
 	$Camera2D.position = initial_camera_position
-	actual_cam = $Camera2D
+	
 
 func _reset_round():
+	_reset_cam_to_player()
+	cochonet_out_of_field_detected = false
 	player1_info.boules_left = 3
 	player1_info.color = "blue"
 	player2_info.boules_left = 3
 	player2_info.color = "red"
-	if cochonet != null:
+	if is_instance_valid(cochonet):
 		cochonet.queue_free()
 	cochonet_on_field = false
 	showed_cochonet_lighter_tip = false
 		
 	for b in get_tree().get_nodes_in_group("boules"):
 		b.queue_free()
+
 
 func _hide_all_GUI_boules():
 	$CanvasLayerGUI/P1B1.visible = false
@@ -385,9 +469,12 @@ func _inverse_player_number(number):
 	return 2 - (number + 1) %2
 
 
-func _closest_player () -> int:
+func _closest_player ():
 	var closest_dist = INF
 	var closest_player = null
+	
+	if not (is_instance_valid(cochonet)):
+		return null
 	
 	for b in get_tree().get_nodes_in_group("boules"):
 		var d = (b as Node2D).position.distance_to(cochonet.position)
@@ -400,6 +487,8 @@ func _closest_player () -> int:
 func _closest_player_boules () -> Array:
 	
 	var closest_player = _closest_player ()
+	if closest_player == null:
+		return []
 	var closest_player_boules = []
 	var farest_player  = _inverse_player_number(closest_player)
 	var farest_player_closest_dist = INF
@@ -542,3 +631,7 @@ func _show_animated_sprite_for_second(sprite, second):
 
 func _on___show_animated_sprite_for_second_timeout(sprite):
 	sprite.visible = false
+	
+func _on___cochonet_out_of_field():
+#	print ("out of field")
+	cochonet_out_of_field_detected = true
