@@ -12,26 +12,33 @@ class Player_info :
 # var b = "text"
 const boule_impulse_factor = 1.4
 const cochonet_impulse_factor = 3
-var  direction_random = 60  #in pixels
+var  direction_random = 40  #in pixels
 const score_to_win = 6 ############################ DBG !!! 13
 #distance & color to qualify a launch
-const precision_perfect = 5  
-const precision_nice = 15
-const precision_normal = 25
+const precision_perfect = 0.15  
+const precision_nice = 0.3
+const precision_normal = 0.5
 const precision_perfect_color = Color (20/255.0,240/255.0,20/255.0)
 const precision_nice_color  = Color (20/255.0,200/255.0,20/255.0)
 const precision_bad_color   = Color (240/255.0,20/255.0,20/255.0)
-const closest_boules_delay = 2 #in Seconds
+const closest_boules_delay = 1 #in Seconds
 
 var time_until_next_wind =  randi() % 5
 var BouleP    = preload ("res://Scenes/Boule.tscn")
 var CochonetP = preload ("res://Scenes/Cochonet.tscn")
-var cochonet
+var cochonet setget cochonet_setter
 var cochonet_last_launcher
 var boule
 var ViseurP    = preload ("res://Scenes/Viseur.tscn")
+var PrecisionSetP = preload ("res://Scenes/PrecisionSet.tscn")
+var precision_set
+var precision_set_setted = false
+var precision_set_canceled = false
+var precision_mult
 var viseur
+var viseur_selected_position
 var cochonet_out_of_field_detected = false
+
 
 var return_to_menu_launched = false
 
@@ -68,6 +75,7 @@ var closest_boules_time = 0
 var actual_cam : Camera2D
 
 var speed = 150
+var speed_swap = 250
 var current_step = ""
 	# Arrive
 	# Aloes_put
@@ -85,6 +93,8 @@ func _ready():
 	$AudioStreamPlayer_VoiceTimmyTimmy.volume_db = Gb.P_Volume_Voice
 	$AudioStreamPlayer_VoiceVictory.volume_db = Gb.P_Volume_Voice
 	$AudioStreamPlayer_VoiceWhouah.volume_db = Gb.P_Volume_Voice
+	
+	$CanvasLayerGUI/Minimap.field_top_left = $Anchor_Field_Start/Anchor_Field_Left
 	
 	cheatcodedetect = CheatCodeDetector.new()
 	cheatcodedetect.codes = ["marisabat"]
@@ -115,17 +125,15 @@ func start_level():
 	actual_cam = $Camera2D
 	
 	############################################################ DEBUG TIME
-	Gb.BUILD_TIME = true
+	Gb.BUILD_TIME = false
 #	current_step = "Wait_Player_Play"
-	current_step = "Select_First_Player"
+	#current_step = "Select_First_Player"
 
 	############################################################
 	if !Gb.BUILD_TIME:
 		#cochonet_on_field = true
 		$AudioStreamPlayer_Music.play()
 		randomize()
-	else :
-		direction_random = 1
 
 
 
@@ -153,13 +161,17 @@ func _process(delta):
 				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Cochonet go out of field ! Player 2 get " + str (player2_info.boules_left) + " points", 5)
 				player2_info.score += player2_info.boules_left
 				tmp_winner = 2
-			_update_score_show()
+			if tmp_winner == 1:
+				$AudioStreamPlayer_VoiceApplause.play()
 			if player1_info.boules_left == 0 and player2_info.boules_left ==0:
 				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Null round !", 5)
 				tmp_winner = current_player #to make them swap
 			if check_if_endgame():
+				_update_score_show()
 				current_step = "Return_To_Menu"
 			else:
+				_audioread_score()
+				_update_score_show()
 				_reset_round()
 				if tmp_winner == current_player:
 					current_step = "Swap_Player_Pos"
@@ -229,10 +241,32 @@ func _process(delta):
 				current_step = "Wait_Player_Play"
 				
 			if Input.is_action_just_pressed("mouse_left"):
+				viseur_selected_position = viseur.selected_vector
+				viseur.queue_free()
+				precision_set = PrecisionSetP.instance()
+				$CanvasLayerGUI.add_child(precision_set)
+				precision_set.position = $CanvasLayerGUI/PrecisionSetPos.position
+				precision_set.connect("precision_set", self, "_on__precision_set")
+				precision_set.connect("precision_cancel", self, "_on__precision_cancel")
+				current_step = "Player_Set_Precision"
+				
+			scroll_cam()
+			
+		"Player_Set_Precision":
+			if precision_set_canceled:
+				precision_set_canceled = false
+				precision_set.queue_free()
+				current_step = "Wait_Player_Play"
+				
+			if precision_set_setted:
+				precision_set_setted = false
+				precision_set.queue_free()
+				
 				var impulse_factor
 				if not cochonet_on_field:
 					boule = CochonetP.instance() 
 					cochonet = boule
+					$CanvasLayerGUI/Minimap.cochonet = cochonet
 					cochonet_on_field = true
 					cochonet_last_launcher = current_player
 					impulse_factor = cochonet_impulse_factor
@@ -246,21 +280,20 @@ func _process(delta):
 					impulse_factor = boule_impulse_factor
 				boule.position = $Viseur_StartPos.position
 				var final_vector : Vector2 = Vector2(0,0)
-				print (viseur.selected_vector)
-				var x_error = - (direction_random/2.0) + (randi() % direction_random)
-				var y_error = - (direction_random/2.0) + (randi() % direction_random)
-				final_vector.x =  viseur.selected_vector.x + x_error
-				final_vector.y =  viseur.selected_vector.y + y_error
-				print (final_vector)
-				var error_dist = final_vector.distance_to(viseur.selected_vector)
-				if error_dist<=precision_perfect:
+#				var x_error = - (direction_random/2.0) + (randi() % direction_random)
+#				var y_error = - (direction_random/2.0) + (randi() % direction_random)
+				var x_error = direction_random*precision_mult
+				var y_error = direction_random*precision_mult
+				final_vector.x =  viseur_selected_position.x + x_error
+				final_vector.y =  viseur_selected_position.y + y_error
+				if abs(precision_mult)<=precision_perfect:
 					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Perfect Precision !", 3.0)
 					$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_perfect_color)
 					$AudioStreamPlayer_VoiceWhouah.play()
-				elif error_dist<=precision_nice:
+				elif abs(precision_mult)<=precision_nice:
 					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Nice Precision !", 3.0)
 					$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_nice_color)
-				elif error_dist<=precision_normal:
+				elif abs(precision_mult)<=precision_normal:
 					$CanvasLayerGUI/Control/LabelPrecision.text = ""
 				else:
 					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Ho no ! You miss of precision !", 3.0)
@@ -275,7 +308,6 @@ func _process(delta):
 						boule.get_child(i).current = true
 						actual_cam = boule.get_child(i)
 				
-				viseur.queue_free()
 				current_step = "Rolling_Boule"
 			
 			scroll_cam()
@@ -350,7 +382,7 @@ func _process(delta):
 			
 			_update_score_show()
 
-			if round_winner_number == current_player:
+			if round_winner_number != current_player:
 				current_step = "Swap_Player_Pos"
 			else:
 				current_step = "Wait_Player_Play"
@@ -364,12 +396,12 @@ func _process(delta):
 			var all_ok = true
 			
 			if not (current_player_path_follow.unit_offset <= 0):
-				current_player_path_follow.offset -=  speed*delta
+				current_player_path_follow.offset -=  speed_swap*delta
 				current_player_animated_sprite.position = current_player_path_follow.position
 				all_ok = false
 
 			if not (other_player_path_follow.unit_offset >= 1):								
-				other_player_path_follow.offset +=  speed*delta
+				other_player_path_follow.offset +=  speed_swap*delta
 				other_player_animated_sprite.position = other_player_path_follow.position
 				all_ok = false
 			else : 
@@ -659,3 +691,16 @@ func _on__cheatdected(code):
 		$Taupes.visible = true
 		#for n in get_tree().get_nodes_in_group("marisabat"):
 		#	n.visible = true
+
+func _on__precision_cancel():
+	precision_set_canceled = true
+	print ("canceled")
+	
+func _on__precision_set(precision):
+	precision_mult = precision
+	precision_set_setted = true
+	
+	
+func cochonet_setter (new_value):
+	cochonet = new_value
+	$CanvasLayerGUI/Minimap.cochonet = new_value
