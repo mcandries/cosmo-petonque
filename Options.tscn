@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Fonts/Fonts-Button-actionJ.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/Options.gd" type="Script" id=2]
-[ext_resource path="res://Musics/écran de selection.wav" type="AudioStream" id=3]
+[ext_resource path="res://Musics/écran de selection.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Sounds/boules qui se tapent2.mp3" type="AudioStream" id=4]
 [ext_resource path="res://Voices-Line/Victory.mp3" type="AudioStream" id=5]
 

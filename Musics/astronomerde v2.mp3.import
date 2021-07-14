@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/astronomerde v2.mp3-7d200943c94470a77ce018b4984306b6.mp3str"
+
+[deps]
+
+source_file="res://Musics/astronomerde v2.mp3"
+dest_files=[ "res://.import/astronomerde v2.mp3-7d200943c94470a77ce018b4984306b6.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Musics/Main Theme song Version Final.wav" type="AudioStream" id=1]
+[ext_resource path="res://Musics/Main Theme song Version Final.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Fonts/lethal-injector-regular.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Fonts/Fonts-Button-actionJ.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=4]
@@ -93,7 +93,7 @@ position = Vector2( 139, 519 )
 scale = Vector2( 2.5, 2.5 )
 frames = ExtResource( 5 )
 animation = "walk_side"
-frame = 6
+frame = 5
 playing = true
 
 [connection signal="pressed" from="Label/Button_Play" to="." method="_on_Button_Play_pressed"]

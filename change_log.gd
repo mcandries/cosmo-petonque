@@ -1,4 +1,7 @@
 ### next ver :
+
+
+### 0.0.5
 # - changement Credits
 # - pour rendre le jeux plus dynamique : 
 # 	* réduction du temps pour voir quel est/sont les boule(s) les plus proche de 2 secondes à 1 secondes

@@ -6,8 +6,8 @@ var field_top_left : Node2D = null
 var cochonet : CochonetC = null
 var mini_boules : Array # Array of BoulesC
 
-var blue_circle = preload("res://Arts/blue_circle.png")
-var red_circle = preload("res://Arts/red_circle.png")
+var blue_circle  = preload("res://Arts/blue_circle.png")
+var red_circle   = preload("res://Arts/red_circle.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/12.mp3-de46477bb85fe09ecd6303d021951485.mp3str"
+
+[deps]
+
+source_file="res://AA_Out_of_build/Voices-Lines/Old/12.mp3"
+dest_files=[ "res://.import/12.mp3-de46477bb85fe09ecd6303d021951485.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

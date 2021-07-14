@@ -11,7 +11,7 @@
 [ext_resource path="res://Scripts/Petonque.gd" type="Script" id=9]
 [ext_resource path="res://Arts/Aloes_transp.png" type="Texture" id=10]
 [ext_resource path="res://Arts/FLOWER1-Sheet.png" type="Texture" id=11]
-[ext_resource path="res://Musics/boostiooooo v2.wav" type="AudioStream" id=12]
+[ext_resource path="res://Musics/boostiooooo v3.2.mp3" type="AudioStream" id=12]
 [ext_resource path="res://Fonts/WorldWorstFont.tres" type="DynamicFont" id=13]
 [ext_resource path="res://Fonts/Fonts-PoetsenOne-25.tres" type="DynamicFont" id=14]
 [ext_resource path="res://Fonts/Fonts-PoetsenOne.tres" type="DynamicFont" id=15]
@@ -498,7 +498,7 @@ texture = ExtResource( 6 )
 visible = false
 position = Vector2( 509.327, 400.672 )
 frames = SubResource( 22 )
-frame = 3
+frame = 8
 playing = true
 
 [node name="Control" type="Control" parent="CanvasLayerGUI"]
@@ -674,6 +674,7 @@ position = Vector2( 666.742, 189.696 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 31 )
 animation = "idle_front"
+frame = 1
 playing = true
 
 [node name="PlayerStartPos" type="Node2D" parent="Player2_AnimatedSprite"]
@@ -684,7 +685,6 @@ position = Vector2( 363.645, 198.97 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 3 )
 animation = "idle_front"
-frame = 1
 playing = true
 offset = Vector2( 0, -0.411354 )
 
@@ -706,7 +706,6 @@ visible = false
 position = Vector2( 599.619, 1605.38 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
-frame = 4
 playing = true
 
 [node name="Taupe2" type="AnimatedSprite" parent="Taupes" groups=[
@@ -715,7 +714,7 @@ playing = true
 position = Vector2( 844.745, 1461.5 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
-frame = 3
+frame = 4
 playing = true
 
 [node name="Taupe3" type="AnimatedSprite" parent="Taupes" groups=[
@@ -724,7 +723,7 @@ playing = true
 position = Vector2( 194.309, 1053.5 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Taupe4" type="AnimatedSprite" parent="Taupes" groups=[
@@ -733,7 +732,7 @@ playing = true
 position = Vector2( 177.294, 882.401 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Taupe5" type="AnimatedSprite" parent="Taupes" groups=[
@@ -742,7 +741,7 @@ playing = true
 position = Vector2( 820.503, 483.372 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Taupe6" type="AnimatedSprite" parent="Taupes" groups=[
@@ -751,6 +750,7 @@ playing = true
 position = Vector2( 915.803, 745.197 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
+frame = 1
 playing = true
 
 [node name="Taupe7" type="AnimatedSprite" parent="Taupes" groups=[
@@ -759,6 +759,7 @@ playing = true
 position = Vector2( 800.322, 1300.36 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
+frame = 1
 playing = true
 
 [node name="Taupe8" type="AnimatedSprite" parent="Taupes" groups=[
@@ -767,6 +768,7 @@ playing = true
 position = Vector2( 242.248, 706.478 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
+frame = 1
 playing = true
 
 [node name="Taupe9" type="AnimatedSprite" parent="Taupes" groups=[
@@ -775,7 +777,6 @@ playing = true
 position = Vector2( 916.848, 171.064 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
-frame = 4
 playing = true
 
 [node name="Taupe10" type="AnimatedSprite" parent="Taupes" groups=[
@@ -784,7 +785,6 @@ playing = true
 position = Vector2( 952.767, 336.066 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
-frame = 4
 playing = true
 
 [node name="Taupe11" type="AnimatedSprite" parent="Taupes" groups=[
@@ -793,14 +793,14 @@ playing = true
 position = Vector2( 119.9, 149.737 )
 scale = Vector2( 0.268639, 0.268639 )
 frames = SubResource( 37 )
-frame = 3
+frame = 4
 playing = true
 
 [node name="Chat" type="AnimatedSprite" parent="."]
 position = Vector2( 232.612, 557.745 )
 scale = Vector2( 0.479338, 0.479338 )
 frames = SubResource( 42 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="Anchor_Field_Start" type="Node2D" parent="."]
