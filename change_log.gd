@@ -7,3 +7,5 @@
 # - Persistances des settings (save & reload au démarrage du jet)
 # - Infos sur les contrôles en bas à droite
 # - Ajout des portraits
+# - EastEgg Code "marisabat"
+# - nouvelles voice line pour les chiffres

@@ -73,6 +73,8 @@ var current_step = ""
 	# Aloes_put
 	# Go_Terrain
 
+var cheatcodedetect
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AudioStreamPlayer_Music.volume_db = Gb.P_Volume_Music
@@ -84,8 +86,13 @@ func _ready():
 	$AudioStreamPlayer_VoiceVictory.volume_db = Gb.P_Volume_Voice
 	$AudioStreamPlayer_VoiceWhouah.volume_db = Gb.P_Volume_Voice
 	
+	cheatcodedetect = CheatCodeDetector.new()
+	cheatcodedetect.codes = ["marisabat"]
+	cheatcodedetect.connect("cheat_detected", self, "_on__cheatdected")
+	self.add_child(cheatcodedetect)
+
 	start_level()
-	pass # Replace with function body.
+
 
 func start_level():
 	player1_info.score = 0
@@ -111,6 +118,7 @@ func start_level():
 	Gb.BUILD_TIME = true
 #	current_step = "Wait_Player_Play"
 	current_step = "Select_First_Player"
+
 	############################################################
 	if !Gb.BUILD_TIME:
 		#cochonet_on_field = true
@@ -423,6 +431,7 @@ func _input(event):
 		
 	scroll_cam_input(event)
 
+
 func _reset_cam_to_player():
 #	if actual_cam != null:
 #		actual_cam.current = false
@@ -595,21 +604,29 @@ func _on__set_label_text_for_second_timeout (label):
 	self.update()
 
 func _audioread_number(number):
-	number = clamp(number,0,13)
+	if number is int:
+		number = clamp(number,0,13)
+
 	var audio_file = load ("res://Voices-Line/"+str(number)+".mp3")
 	audio_file.set_loop(false)
 	$AudioStreamPlayer_VoiceNumber.stream = audio_file
 	$AudioStreamPlayer_VoiceNumber.play()
 	
 
-func _audioread_score():
-	_audioread_number(player1_info.score)
+func _timer_func (delay, function, function_param):
 	var timer = Timer.new()
-	timer.connect("timeout",self,"_on___audioread_score_timeout", [player2_info.score]) 
+	timer.connect("timeout",self,function, function_param) 
 	add_child(timer) #to process
-	timer.wait_time = 2
+	timer.wait_time = delay
 	timer.one_shot = true
 	timer.start()
+	
+
+func _audioread_score():
+	_audioread_number(player1_info.score)
+	_timer_func(1.25, "_on___audioread_score_timeout", ["To"])
+	_timer_func(2.0, "_on___audioread_score_timeout", [player2_info.score])
+
 	
 func _on___audioread_score_timeout (score):
 	_audioread_number(score)
@@ -636,3 +653,9 @@ func _on___show_animated_sprite_for_second_timeout(sprite):
 func _on___cochonet_out_of_field():
 #	print ("out of field")
 	cochonet_out_of_field_detected = true
+
+func _on__cheatdected(code):
+	if code == "marisabat":
+		$Taupes.visible = true
+		#for n in get_tree().get_nodes_in_group("marisabat"):
+		#	n.visible = true
