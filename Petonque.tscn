@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://TileSet/Petonque_Tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Arts/Tree1.2.png" type="Texture" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://Scripts/Petonque.gd" type="Script" id=9]
 [ext_resource path="res://Arts/Aloes_transp.png" type="Texture" id=10]
 [ext_resource path="res://Arts/FLOWER1-Sheet.png" type="Texture" id=11]
-[ext_resource path="res://Musics/boostiooooo v3.2.mp3" type="AudioStream" id=12]
 [ext_resource path="res://Fonts/WorldWorstFont.tres" type="DynamicFont" id=13]
 [ext_resource path="res://Fonts/Fonts-PoetsenOne-25.tres" type="DynamicFont" id=14]
 [ext_resource path="res://Fonts/Fonts-PoetsenOne.tres" type="DynamicFont" id=15]
@@ -420,7 +419,6 @@ stream = ExtResource( 20 )
 [node name="AudioStreamPlayer_VoiceNumber" type="AudioStreamPlayer" parent="."]
 
 [node name="AudioStreamPlayer_Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
 volume_db = -10.0
 
 [node name="AudioStreamPlayer_VoiceVictory" type="AudioStreamPlayer" parent="."]
@@ -498,7 +496,7 @@ texture = ExtResource( 6 )
 visible = false
 position = Vector2( 509.327, 400.672 )
 frames = SubResource( 22 )
-frame = 8
+frame = 9
 playing = true
 
 [node name="Control" type="Control" parent="CanvasLayerGUI"]
@@ -800,7 +798,7 @@ playing = true
 position = Vector2( 232.612, 557.745 )
 scale = Vector2( 0.479338, 0.479338 )
 frames = SubResource( 42 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Anchor_Field_Start" type="Node2D" parent="."]
@@ -849,5 +847,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="finished" from="AudioStreamPlayer_Music" to="." method="_on_AudioStreamPlayer_Music_finished"]
 [connection signal="animation_finished" from="Player2_AnimatedSprite" to="." method="_on_Player2_AnimatedSprite_animation_finished"]
 [connection signal="animation_finished" from="Player1_AnimatedSprite" to="." method="_on_Player1_AnimatedSprite_animation_finished"]

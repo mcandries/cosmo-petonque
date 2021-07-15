@@ -1,4 +1,5 @@
 ### next ver :
+# - Réduction poids du jeux (~30 Mo au lieu de ~180 Mo) + .exe only
 
 
 ### 0.0.5

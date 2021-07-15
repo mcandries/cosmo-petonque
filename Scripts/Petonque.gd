@@ -22,6 +22,9 @@ const precision_perfect_color = Color (20/255.0,240/255.0,20/255.0)
 const precision_nice_color  = Color (20/255.0,200/255.0,20/255.0)
 const precision_bad_color   = Color (240/255.0,20/255.0,20/255.0)
 const closest_boules_delay = 1 #in Seconds
+const music_playlist = ["boostiooooo v3.2", "water world v3.5"]
+
+var music_player_cursor = 0
 
 var time_until_next_wind =  randi() % 5
 var BouleP    = preload ("res://Scenes/Boule.tscn")
@@ -93,6 +96,7 @@ func _ready():
 	$AudioStreamPlayer_VoiceTimmyTimmy.volume_db = Gb.P_Volume_Voice
 	$AudioStreamPlayer_VoiceVictory.volume_db = Gb.P_Volume_Voice
 	$AudioStreamPlayer_VoiceWhouah.volume_db = Gb.P_Volume_Voice
+	_on_AudioStreamPlayer_Music_finished()
 	
 	$CanvasLayerGUI/Minimap.field_top_left = $Anchor_Field_Start/Anchor_Field_Left
 	
@@ -704,3 +708,13 @@ func _on__precision_set(precision):
 func cochonet_setter (new_value):
 	cochonet = new_value
 	$CanvasLayerGUI/Minimap.cochonet = new_value
+
+
+func _on_AudioStreamPlayer_Music_finished():
+	music_player_cursor += 1
+	if (music_player_cursor>music_playlist.size()-1):
+		music_player_cursor = 0
+	var zik : AudioStreamMP3 = load ("res://Musics/"+music_playlist[music_player_cursor]+".mp3")
+	zik.set_loop(false)
+	$AudioStreamPlayer_Music.stream = zik
+	$AudioStreamPlayer_Music.play()
