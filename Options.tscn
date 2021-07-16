@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Fonts/Fonts-Button-actionJ.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/Options.gd" type="Script" id=2]
+[ext_resource path="res://Musics/écran de selection.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/boules qui se tapent2.mp3" type="AudioStream" id=4]
+[ext_resource path="res://Voices-Line/Victory.mp3" type="AudioStream" id=5]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -28,5 +31,97 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AudioStreamPlayer_Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
+autoplay = true
+
+[node name="Slider_Music" type="Node2D" parent="."]
+position = Vector2( 522, 236 )
+
+[node name="LabelMusic" type="Label" parent="Slider_Music"]
+margin_left = -397.0
+margin_top = -24.0
+margin_right = -23.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "Music Volume :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSliderMusic" type="HSlider" parent="Slider_Music"]
+margin_left = 32.0
+margin_top = -16.0
+margin_right = 384.0
+margin_bottom = 20.0
+min_value = -50.0
+max_value = 5.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slider_Sound" type="Node2D" parent="."]
+position = Vector2( 523, 288 )
+
+[node name="LabelSound" type="Label" parent="Slider_Sound"]
+margin_left = -397.0
+margin_top = -24.0
+margin_right = -23.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "Sound Volume :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSliderSound" type="HSlider" parent="Slider_Sound"]
+margin_left = 32.0
+margin_top = -16.0
+margin_right = 384.0
+margin_bottom = 20.0
+min_value = -50.0
+max_value = 5.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slider_Voice" type="Node2D" parent="."]
+position = Vector2( 524, 341 )
+
+[node name="LabelVoice" type="Label" parent="Slider_Voice"]
+margin_left = -397.0
+margin_top = -24.0
+margin_right = -23.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "Voice Volume :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSliderVoice" type="HSlider" parent="Slider_Voice"]
+margin_left = 31.0
+margin_top = -16.0
+margin_right = 383.0
+margin_bottom = 20.0
+min_value = -50.0
+max_value = 5.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer_SoundTest" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="AudioStreamPlayer_VoiceTest" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
 [connection signal="pressed" from="Button_Fullscreen" to="." method="_on_Button_Fullscreen_pressed"]
 [connection signal="pressed" from="Button_Back" to="." method="_on_Button_Back_pressed"]
+[connection signal="value_changed" from="Slider_Music/HSliderMusic" to="." method="_on_HSliderMusic_value_changed"]
+[connection signal="value_changed" from="Slider_Sound/HSliderSound" to="." method="_on_HSliderSound_value_changed"]
+[connection signal="value_changed" from="Slider_Voice/HSliderVoice" to="." method="_on_HSliderVoice_value_changed"]

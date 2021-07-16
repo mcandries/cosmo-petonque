@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/boostiooooo v3.2.mp3-15dc190c54e9ca1e452813519cc23bec.mp3str"
+
+[deps]
+
+source_file="res://Musics/boostiooooo v3.2.mp3"
+dest_files=[ "res://.import/boostiooooo v3.2.mp3-15dc190c54e9ca1e452813519cc23bec.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

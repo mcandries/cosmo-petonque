@@ -8,7 +8,11 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	Gb.load_settings()
+	if Gb.P_Fullscreen :
+		OS.window_fullscreen = true
+	$AudioStreamPlayer.volume_db = Gb.P_Volume_Music
+	$AudioStreamPlayer.play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

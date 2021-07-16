@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/To.mp3-c67ffb116d13711dee1c82e65af10964.mp3str"
+
+[deps]
+
+source_file="res://Voices-Line/To.mp3"
+dest_files=[ "res://.import/To.mp3-c67ffb116d13711dee1c82e65af10964.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

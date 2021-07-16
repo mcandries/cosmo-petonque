@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/écran de selection.mp3-fb3a4fe403622cfd73976e447a0d1b53.mp3str"
+
+[deps]
+
+source_file="res://Musics/écran de selection.mp3"
+dest_files=[ "res://.import/écran de selection.mp3-fb3a4fe403622cfd73976e447a0d1b53.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

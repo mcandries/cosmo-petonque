@@ -11,5 +11,5 @@ dest_files=[ "res://.import/TIMMY TIMMY TIMMY.mp3-72d945cff95da40f70db19782e13c3
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

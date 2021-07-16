@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "BouleC",
+"language": "GDScript",
+"path": "res://Scripts/Boule.gd"
+}, {
+"base": "Node",
+"class": "CheatCodeDetector",
+"language": "GDScript",
+"path": "res://Scripts/CheatCodeDetector.gd"
+}, {
+"base": "RigidBody2D",
+"class": "CochonetC",
+"language": "GDScript",
+"path": "res://Scripts/Cochonet.gd"
+} ]
+_global_script_class_icons={
+"BouleC": "",
+"CheatCodeDetector": "",
+"CochonetC": ""
+}
+
 [application]
 
 config/name="CosmoPetonque"

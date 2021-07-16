@@ -10,6 +10,7 @@ var selected_angle = 0
 var selected_direction = 0
 var selected_vector = Vector2 (0,0)
 var selected_power = 0
+export var color = Color (0,0,0)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -31,7 +32,7 @@ func _process(delta):
 	self.update()
 
 func _draw():
-	draw_line(init_pos, target_pos, Color(255,0,0))
+	draw_line(init_pos, target_pos, color)
 
 
 #		#var v1 := Vector2 (0,0)

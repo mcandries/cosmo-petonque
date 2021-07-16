@@ -11,5 +11,5 @@ dest_files=[ "res://.import/I need Healing.mp3-23b61d7327d7e3522d7ad810a43006ae.
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

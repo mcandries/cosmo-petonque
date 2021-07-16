@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Applaudissements.mp3-02053bb15c3abd47cb5253ee0f5eeef
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
