@@ -7,15 +7,27 @@ class_name BouleC
 # var b = "text"
 
 export var player_number : int
+export var level_number : int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$boule1_1.visible = false
+	$boule1_2.visible = false
+	$boule2_1.visible = false
+	$boule2_2.visible = false
+	
 	$AudioStreamPlayer_Boule_tape.volume_db = Gb.P_Volume_Sound
-	if player_number == 1 : 
-		$boule2.visible = false
-	else:
-		$boule1.visible = false
-	pass # Replace with function body.
+	match level_number:
+		1: 
+			if player_number == 1 : 
+				$boule1_1.visible = true
+			else:
+				$boule1_2.visible = true
+		2: 
+			if player_number == 1 : 
+				$boule2_1.visible = true
+			else:
+				$boule2_2.visible = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -43,7 +43,7 @@ margin_right = 946.0
 margin_bottom = 241.0
 rect_pivot_offset = Vector2( 54, 85 )
 custom_fonts/font = ExtResource( 3 )
-text = "Campaign"
+text = "level 2"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -93,10 +93,11 @@ position = Vector2( 139, 519 )
 scale = Vector2( 2.5, 2.5 )
 frames = ExtResource( 5 )
 animation = "walk_side"
-frame = 3
+frame = 6
 playing = true
 
 [connection signal="pressed" from="Label/Button_Play" to="." method="_on_Button_Play_pressed"]
+[connection signal="pressed" from="Label/Button_Play2" to="." method="_on_Button_Play2_pressed"]
 [connection signal="pressed" from="Label/Button_Credits" to="." method="_on_Button_Credits_pressed"]
 [connection signal="pressed" from="Label/Button_Options" to="." method="_on_Button_Options_pressed"]
 [connection signal="pressed" from="Label/Button_Quit" to="." method="_on_Button_Quit_pressed"]

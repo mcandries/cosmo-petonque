@@ -120,8 +120,36 @@ stream = ExtResource( 4 )
 [node name="AudioStreamPlayer_VoiceTest" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 
+[node name="Help_Screen" type="CheckBox" parent="."]
+margin_left = 43.0
+margin_top = 388.0
+margin_right = 986.0
+margin_bottom = 439.0
+custom_fonts/font = ExtResource( 1 )
+pressed = true
+text = "Commands help screen at game start"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Show_Tips" type="CheckBox" parent="."]
+margin_left = 402.0
+margin_top = 446.0
+margin_right = 683.0
+margin_bottom = 497.0
+custom_fonts/font = ExtResource( 1 )
+pressed = true
+text = "Show Tips"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Button_Fullscreen" to="." method="_on_Button_Fullscreen_pressed"]
 [connection signal="pressed" from="Button_Back" to="." method="_on_Button_Back_pressed"]
 [connection signal="value_changed" from="Slider_Music/HSliderMusic" to="." method="_on_HSliderMusic_value_changed"]
 [connection signal="value_changed" from="Slider_Sound/HSliderSound" to="." method="_on_HSliderSound_value_changed"]
 [connection signal="value_changed" from="Slider_Voice/HSliderVoice" to="." method="_on_HSliderVoice_value_changed"]
+[connection signal="toggled" from="Help_Screen" to="." method="_on_Help_Screen_toggled"]
+[connection signal="toggled" from="Show_Tips" to="." method="_on_Show_Tips_toggled"]

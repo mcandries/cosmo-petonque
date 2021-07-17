@@ -11,6 +11,8 @@ var P_Volume_Music = -15
 var P_Volume_Sound = -5
 var P_Volume_Voice = -5
 
+var P_Help_Screen = true
+var P_Show_Tips = true
 
 
 func load_settings():
@@ -28,6 +30,9 @@ func load_settings():
 	P_Volume_Music = f.get_value("SOUND","P_Volume_Music",P_Volume_Music)
 	P_Volume_Sound = f.get_value("SOUND","P_Volume_Sound",P_Volume_Sound)
 	P_Volume_Voice = f.get_value("SOUND","P_Volume_Voice",P_Volume_Voice)
+	P_Help_Screen  = f.get_value("PREFS","P_Help_Screen",P_Help_Screen)
+	P_Show_Tips	   = f.get_value("PREFS","P_Show_Tips",P_Show_Tips)
+	
 
 func save_settings():
 #	var f = File.new()
@@ -42,5 +47,7 @@ func save_settings():
 	f.set_value("SOUND","P_Volume_Music",P_Volume_Music)
 	f.set_value("SOUND","P_Volume_Sound",P_Volume_Sound)
 	f.set_value("SOUND","P_Volume_Voice",P_Volume_Voice)
+	f.set_value("PREFS","P_Help_Screen",P_Help_Screen)
+	f.set_value("PREFS","P_Show_Tips",P_Show_Tips)
 	f.save(settings_file)
 	

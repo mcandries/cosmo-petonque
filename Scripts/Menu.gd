@@ -24,9 +24,11 @@ func _on_Button_Quit_pressed():
 	get_tree().quit()
 
 
-
 func _on_Button_Play_pressed():
-	get_tree().change_scene("res://Petonque.tscn")
+	if Gb.P_Help_Screen:
+		get_tree().change_scene("res://Help_screen.tscn")
+	else:
+		get_tree().change_scene("res://Petonque_lvl1.tscn")
 
 
 
@@ -38,3 +40,10 @@ func _on_Button_Credits_pressed():
 func _on_Button_Options_pressed():
 	get_tree().change_scene("res://Options.tscn")
 	pass # Replace with function body.
+
+
+func _on_Button_Play2_pressed():
+	if Gb.P_Help_Screen:
+		get_tree().change_scene("res://Help_screen.tscn")
+	else:
+		get_tree().change_scene("res://Petonque_lvl2.tscn")

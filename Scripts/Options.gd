@@ -11,6 +11,9 @@ func _ready():
 	$Slider_Music/HSliderMusic.value = Gb.P_Volume_Music
 	$Slider_Sound/HSliderSound.value = Gb.P_Volume_Sound
 	$Slider_Voice/HSliderVoice.value = Gb.P_Volume_Voice
+	
+	$Help_Screen.pressed = Gb.P_Help_Screen
+	$Show_Tips.pressed = Gb.P_Show_Tips
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -42,3 +45,12 @@ func _on_HSliderVoice_value_changed(value):
 	$AudioStreamPlayer_VoiceTest.volume_db = value
 	if not $AudioStreamPlayer_VoiceTest.playing : 
 		$AudioStreamPlayer_VoiceTest.play()
+
+
+func _on_Help_Screen_toggled(button_pressed):
+	Gb.P_Help_Screen = button_pressed
+	
+
+
+func _on_Show_Tips_toggled(button_pressed):
+	Gb.P_Show_Tips = button_pressed
