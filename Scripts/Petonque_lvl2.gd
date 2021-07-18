@@ -3,7 +3,7 @@ extends "res://Scripts/Petonque.gd"
 
 
 func _init():
-	music_playlist = ["boostiooooo v3.2", "water world v3.5"]
+	music_playlist = ["Space Theme Version Final", "escape the moon version Final"]
 	current_level = 2
 
 func _ready():

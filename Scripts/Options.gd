@@ -14,6 +14,9 @@ func _ready():
 	
 	$Help_Screen.pressed = Gb.P_Help_Screen
 	$Show_Tips.pressed = Gb.P_Show_Tips
+	
+	$MenuButton.get_popup().toggle_item_checked(Gb.P_Difficulty)
+	$MenuButton.get_popup().connect("id_pressed",self,"_on_id_pressed")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -24,10 +27,6 @@ func _on_Button_Back_pressed():
 	Gb.save_settings()
 	get_tree().change_scene("res://Menu.tscn")
 
-
-func _on_Button_Fullscreen_pressed():
-	OS.window_fullscreen = !OS.window_fullscreen
-	Gb.P_Fullscreen = OS.window_fullscreen
 
 
 func _on_HSliderMusic_value_changed(value):
@@ -54,3 +53,15 @@ func _on_Help_Screen_toggled(button_pressed):
 
 func _on_Show_Tips_toggled(button_pressed):
 	Gb.P_Show_Tips = button_pressed
+
+
+func _on_Fullscreen_pressed():
+	OS.window_fullscreen = !OS.window_fullscreen
+	Gb.P_Fullscreen = OS.window_fullscreen
+
+
+func _on_id_pressed(id : int):
+	Gb.P_Difficulty = id
+	for i in $MenuButton.get_popup().get_item_count():
+		$MenuButton.get_popup().set_item_checked(i,false)
+	$MenuButton.get_popup().set_item_checked(id, true)

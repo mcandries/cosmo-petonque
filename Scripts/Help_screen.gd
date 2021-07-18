@@ -18,4 +18,3 @@ func _ready():
 
 func _on_Button_Play_pressed():
 	get_tree().change_scene("res://Petonque_lvl1.tscn")
-	pass # Replace with function body.
