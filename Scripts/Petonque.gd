@@ -22,9 +22,11 @@ const precision_perfect_color = Color (20/255.0,240/255.0,20/255.0)
 const precision_nice_color  = Color (20/255.0,200/255.0,20/255.0)
 const precision_bad_color   = Color (240/255.0,20/255.0,20/255.0)
 const closest_boules_delay = 1 #in Seconds
-const music_playlist = ["boostiooooo v3.2", "water world v3.5"]
+
+var music_playlist
 
 var music_player_cursor = 0
+
 
 var time_until_next_wind =  randi() % 5
 var BouleP    = preload ("res://Scenes/Boule.tscn")
@@ -41,7 +43,7 @@ var precision_mult
 var viseur
 var viseur_selected_position
 var cochonet_out_of_field_detected = false
-
+var current_level = 1
 
 var return_to_menu_launched = false
 
@@ -73,6 +75,8 @@ var camera_scroll_velocity_last_delta = 0
 var cochonet_on_field = false
 var showed_cochonet_lighter_tip = false #The tips has been showed
 
+var go_to_next_level_launched = false
+
 var closest_boules_time = 0
 
 var actual_cam : Camera2D
@@ -84,7 +88,7 @@ var current_step = ""
 	# Aloes_put
 	# Go_Terrain
 
-var cheatcodedetect
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -100,11 +104,6 @@ func _ready():
 	
 	$CanvasLayerGUI/Minimap.field_top_left = $Anchor_Field_Start/Anchor_Field_Left
 	
-	cheatcodedetect = CheatCodeDetector.new()
-	cheatcodedetect.codes = ["marisabat"]
-	cheatcodedetect.connect("cheat_detected", self, "_on__cheatdected")
-	self.add_child(cheatcodedetect)
-
 	start_level()
 
 
@@ -147,8 +146,6 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene("res://Menu.tscn")
 
-	move_flower(delta)
-
 	$Anchor_Field_Start.visible = false
 	$Anchor_Field_Start.visible = false
 
@@ -170,9 +167,8 @@ func _process(delta):
 			if player1_info.boules_left == 0 and player2_info.boules_left ==0:
 				_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Null round !", 5)
 				tmp_winner = current_player #to make them swap
-			if check_if_endgame():
+			if check_and_set_current_step_if_endgame():
 				_update_score_show()
-				current_step = "Return_To_Menu"
 			else:
 				_audioread_score()
 				_update_score_show()
@@ -221,6 +217,11 @@ func _process(delta):
 		"Wait_Player_Play":
 			if not cochonet_on_field:
 				$Anchor_Field_Start.visible = true
+			
+			if not cochonet_on_field and not showed_cochonet_lighter_tip:
+				if Gb.P_Show_Tips :
+					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelTips, "Chochonet is lighter and go further than ball...", 5.0)
+				showed_cochonet_lighter_tip = true
 
 			if Input.is_action_just_pressed("mouse_left"):
 				$Viseur_StartPos.position = get_node("Player"+str(current_player)+"_AnimatedSprite/PlayerStartPos").global_position
@@ -232,11 +233,10 @@ func _process(delta):
 			scroll_cam()
 
 		"Player_Set_direction":
-				
-			if not cochonet_on_field and not showed_cochonet_lighter_tip:
-				_set_label_text_for_second ($CanvasLayerGUI/Control/LabelTips, "Do not forget that it is lighter ...", 5.0)
-				showed_cochonet_lighter_tip = true
-
+			
+			if Gb.P_Show_Tips :
+				_set_label_text_for_second ($CanvasLayerGUI/Control/LabelTips, "Choose direction and power.\nThe ball will roll further than the point you choose...", 5.0)
+			
 			if not cochonet_on_field:
 				$Anchor_Field_Start.visible = true
 			
@@ -257,9 +257,14 @@ func _process(delta):
 			scroll_cam()
 			
 		"Player_Set_Precision":
+	
+			if Gb.P_Show_Tips :
+				_set_label_text_for_second ($CanvasLayerGUI/Control/LabelTips, "Try to do a precise shot by clicking\nwhen the moving line is on the Green zone !", 5.0)
+			
 			if precision_set_canceled:
 				precision_set_canceled = false
 				precision_set.queue_free()
+				_set_label_text_for_second ($CanvasLayerGUI/Control/LabelTips, "", 0.1)
 				current_step = "Wait_Player_Play"
 				
 			if precision_set_setted:
@@ -277,6 +282,7 @@ func _process(delta):
 					cochonet.connect("out_of_field",self, "_on___cochonet_out_of_field")
 				else:
 					boule = BouleP.instance()
+					boule.level_number = current_level
 					boule.player_number = current_player
 					current_player_info.boules_left -= 1
 					boule.add_to_group("boules")
@@ -312,6 +318,7 @@ func _process(delta):
 						boule.get_child(i).current = true
 						actual_cam = boule.get_child(i)
 				
+				_set_label_text_for_second ($CanvasLayerGUI/Control/LabelTips, "", 0.1)
 				current_step = "Rolling_Boule"
 			
 			scroll_cam()
@@ -391,8 +398,8 @@ func _process(delta):
 			else:
 				current_step = "Wait_Player_Play"
 
-			if check_if_endgame():
-				current_step = "Return_To_Menu"
+			check_and_set_current_step_if_endgame()
+
 				
 			
 		"Swap_Player_Pos":
@@ -417,7 +424,12 @@ func _process(delta):
 				_set_player(_inverse_player_number(current_player))
 				current_step = "Wait_Player_Play"
 			
-		
+		"Go_Next_Level":
+			if not go_to_next_level_launched:
+				go_to_next_level_launched = true
+				yield(get_tree().create_timer(4.0), "timeout")
+				get_tree().change_scene("res://Petonque_lvl2.tscn")
+				
 		"Return_To_Menu":
 		
 			if not return_to_menu_launched:
@@ -443,13 +455,17 @@ func show_nearest_boule_circle():
 	for b in _closest_player_boules():
 		b.show_circle(players_info[closest_player-1].color, 2)
 
-func check_if_endgame() -> bool:
+func check_and_set_current_step_if_endgame() -> bool:
 	if player1_info.score>=(score_to_win/10.0)*8:
 		$AudioStreamPlayer_VoiceTimmyTimmy.play()
 
 	if player1_info.score>=score_to_win:
 		_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You win !",4)
 		$AudioStreamPlayer_VoiceVictory.play()
+		if current_level <2:
+			current_step = "Go_Next_Level"
+		else : 
+			current_step = "Return_To_Menu"
 		return true
 		
 	if player2_info.score>=score_to_win:
@@ -574,14 +590,7 @@ func _update_score_show():
 	$CanvasLayerGUI/Control/LabelScore.text = str (player1_info.score) + "/" + str (score_to_win) + " - " + str (player2_info.score) + "/" + str (score_to_win)
 
 			
-func move_flower(delta):
-	time_until_next_wind -= delta
-	if time_until_next_wind<=0 :
-#		$Flower1.animation = "Wind"
-		for flower in get_tree().get_nodes_in_group("flowers"):
-			flower.frame = 0
-			flower.play("Wind")
-		time_until_next_wind = randi() % 5
+
 
 func scroll_cam():
 	$Camera2D.position.y += camera_scroll_offset
@@ -689,12 +698,6 @@ func _on___show_animated_sprite_for_second_timeout(sprite):
 func _on___cochonet_out_of_field():
 #	print ("out of field")
 	cochonet_out_of_field_detected = true
-
-func _on__cheatdected(code):
-	if code == "marisabat":
-		$Taupes.visible = true
-		#for n in get_tree().get_nodes_in_group("marisabat"):
-		#	n.visible = true
 
 func _on__precision_cancel():
 	precision_set_canceled = true

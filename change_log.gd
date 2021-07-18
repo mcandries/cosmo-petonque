@@ -1,6 +1,15 @@
 ### next ver :
-# - Réduction poids du jeux (~30 Mo au lieu de ~180 Mo) + .exe only
+# - Ajout de 4 niveaux de difficultés via le menu options
+# - Musique pour le level 2 : Space Theme & Escape the Moon 
 
+### 0.0.6
+# - Réduction poids du jeux (~30 Mo au lieu de ~180 Mo) + .exe only
+# - Ajout musiv Water World au 1er level + ajout "playlist" pour passer le Boostio à WaterWorld, etc.
+# - Ajout écran explicatif "comment jouer"
+# - Ajout de Tips explicatifs durant la partie
+# - Ajout option pour désactiver l'écran "comment jouer"
+# - Ajout option pour désactiver les Tips
+# - Ajout level 2
 
 ### 0.0.5
 # - changement Credits

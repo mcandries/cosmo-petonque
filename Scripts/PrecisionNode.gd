@@ -8,7 +8,7 @@ extends Node2D
 signal precision_set
 signal precision_cancel
 
-export var cursor_speed = 675 #pixel/seconds
+var cursor_speed = 675 #pixel/seconds
 var cursor_sns = 1
 
 var x_start 
@@ -16,6 +16,16 @@ var x_stop
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	match Gb.P_Difficulty:
+		0:
+			cursor_speed = 450
+		1:
+			cursor_speed = 675
+		2:
+			cursor_speed = 800
+		3:
+			cursor_speed = 1100
+		
 	x_start = $precision_bar.position.x - $precision_bar.get_rect().size.x/2
 	x_stop =  $precision_bar.position.x + $precision_bar.get_rect().size.x/2
 	$precision_cursor.position.x = x_start

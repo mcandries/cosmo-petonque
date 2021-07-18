@@ -9,17 +9,6 @@
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Button_Fullscreen" type="Button" parent="."]
-margin_left = 292.0
-margin_top = 109.0
-margin_right = 752.0
-margin_bottom = 158.0
-custom_fonts/font = ExtResource( 1 )
-text = "Toggle Fullscreen"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Button_Back" type="Button" parent="."]
 margin_left = 877.0
 margin_top = 538.0
@@ -37,7 +26,7 @@ volume_db = -10.0
 autoplay = true
 
 [node name="Slider_Music" type="Node2D" parent="."]
-position = Vector2( 522, 236 )
+position = Vector2( 534, 171 )
 
 [node name="LabelMusic" type="Label" parent="Slider_Music"]
 margin_left = -397.0
@@ -63,7 +52,7 @@ __meta__ = {
 }
 
 [node name="Slider_Sound" type="Node2D" parent="."]
-position = Vector2( 523, 288 )
+position = Vector2( 535, 223 )
 
 [node name="LabelSound" type="Label" parent="Slider_Sound"]
 margin_left = -397.0
@@ -89,7 +78,7 @@ __meta__ = {
 }
 
 [node name="Slider_Voice" type="Node2D" parent="."]
-position = Vector2( 524, 341 )
+position = Vector2( 536, 276 )
 
 [node name="LabelVoice" type="Label" parent="Slider_Voice"]
 margin_left = -397.0
@@ -120,8 +109,64 @@ stream = ExtResource( 4 )
 [node name="AudioStreamPlayer_VoiceTest" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 
-[connection signal="pressed" from="Button_Fullscreen" to="." method="_on_Button_Fullscreen_pressed"]
+[node name="Help_Screen" type="CheckBox" parent="."]
+margin_left = 55.0
+margin_top = 323.0
+margin_right = 998.0
+margin_bottom = 374.0
+custom_fonts/font = ExtResource( 1 )
+pressed = true
+text = "Commands help screen at game start"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Show_Tips" type="CheckBox" parent="."]
+margin_left = 414.0
+margin_top = 381.0
+margin_right = 695.0
+margin_bottom = 432.0
+custom_fonts/font = ExtResource( 1 )
+pressed = true
+text = "Show Tips"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fullscreen" type="CheckBox" parent="."]
+margin_left = 363.0
+margin_top = 67.0
+margin_right = 644.0
+margin_bottom = 118.0
+custom_fonts/font = ExtResource( 1 )
+text = "Fullscreen"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuButton" type="MenuButton" parent="."]
+margin_left = 314.0
+margin_top = 456.0
+margin_right = 761.0
+margin_bottom = 505.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.807843, 0.329412, 0.329412, 1 )
+custom_colors/font_color = Color( 0.94902, 0.85098, 0.85098, 1 )
+custom_colors/font_color_hover = Color( 0.109804, 0.145098, 0.462745, 1 )
+custom_colors/font_color_pressed = Color( 0.745098, 0.266667, 0.266667, 1 )
+text = "Choose Difficulty"
+flat = false
+items = [ "Easy", null, 2, false, false, 0, 0, null, "", false, "Normal", null, 2, false, false, 1, 0, null, "", false, "Hard", null, 2, false, false, 2, 0, null, "", false, "E Sport Pro Gamer Full Options", null, 2, false, false, 3, 0, null, "", false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Button_Back" to="." method="_on_Button_Back_pressed"]
 [connection signal="value_changed" from="Slider_Music/HSliderMusic" to="." method="_on_HSliderMusic_value_changed"]
 [connection signal="value_changed" from="Slider_Sound/HSliderSound" to="." method="_on_HSliderSound_value_changed"]
 [connection signal="value_changed" from="Slider_Voice/HSliderVoice" to="." method="_on_HSliderVoice_value_changed"]
+[connection signal="toggled" from="Help_Screen" to="." method="_on_Help_Screen_toggled"]
+[connection signal="toggled" from="Show_Tips" to="." method="_on_Show_Tips_toggled"]
+[connection signal="pressed" from="Fullscreen" to="." method="_on_Fullscreen_pressed"]
