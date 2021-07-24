@@ -17,7 +17,10 @@ func _ready():
 
 
 func _on_Button_Play_pressed():
-	if Gb.Go_To == 1 : 
-		get_tree().change_scene("res://Petonque_lvl1.tscn")
-	else : 
-		get_tree().change_scene("res://Petonque_lvl2.tscn")
+	if Gb.Game_Mode == Gb.MODE_STORY : 
+		get_tree().change_scene("res://Scenes/Petonque_lvl1_diag.tscn")
+	else:  
+		if Gb.Go_To == 1 : 
+			get_tree().change_scene("res://Petonque_lvl1.tscn")
+		else : 
+			get_tree().change_scene("res://Petonque_lvl2.tscn")

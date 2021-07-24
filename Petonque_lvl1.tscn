@@ -408,12 +408,14 @@ tile_data = PoolIntArray( 262149, 0, 0, 262150, 0, 1, 262151, 0, 1, 262152, 0, 1
 position = Vector2( 994.691, 367.845 )
 scale = Vector2( 0.626134, 0.626134 )
 frames = SubResource( 55 )
+frame = 12
 playing = true
 
 [node name="TreeM2" type="AnimatedSprite" parent="."]
 position = Vector2( 98.4165, 993.143 )
 scale = Vector2( 0.796325, 0.796325 )
 frames = SubResource( 55 )
+frame = 12
 playing = true
 
 [node name="Tree14" type="Sprite" parent="."]
@@ -440,14 +442,12 @@ texture = ExtResource( 33 )
 position = Vector2( 828.493, 1016.85 )
 scale = Vector2( 0.461992, 0.461992 )
 frames = SubResource( 64 )
-frame = 7
 playing = true
 
 [node name="Chat" type="AnimatedSprite" parent="."]
 position = Vector2( 232.612, 557.745 )
 scale = Vector2( 0.479338, 0.479338 )
 frames = SubResource( 65 )
-frame = 2
 playing = true
 
 [node name="kit_boules" type="Node2D" parent="."]
@@ -662,7 +662,7 @@ texture = ExtResource( 2 )
 visible = false
 position = Vector2( 509.327, 400.672 )
 frames = SubResource( 87 )
-frame = 5
+frame = 6
 playing = true
 
 [node name="Control" type="Control" parent="CanvasLayerGUI"]
@@ -838,6 +838,7 @@ position = Vector2( 666.742, 189.696 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 96 )
 animation = "idle_front"
+frame = 1
 playing = true
 
 [node name="PlayerStartPos" type="Node2D" parent="Player2_AnimatedSprite"]
@@ -848,7 +849,6 @@ position = Vector2( 363.645, 198.97 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 10 )
 animation = "idle_front"
-frame = 1
 playing = true
 offset = Vector2( 0, -0.411354 )
 

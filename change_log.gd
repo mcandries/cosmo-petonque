@@ -12,6 +12,7 @@
 # - Ajout d'un "AB" (Artificial Dumb) en mode story  (au lieu d'un IA ;)
 # - Modification pour le mode 1v1 : on obtiens des messages "player 1 win" / "player 2 win" au lieu de "you win" / "you loose", et on retourne au menu en fin de parie
 # - Ajout option "short game" (en 6 points), sinon victoire en 13 points
+# - Ajout de tous les dialogues en mode histoire
 
 
 ##Grille de Test :
