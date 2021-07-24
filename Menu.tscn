@@ -24,66 +24,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button_Play" type="Button" parent="Label"]
-margin_left = 699.0
-margin_top = 250.0
-margin_right = 947.0
-margin_bottom = 307.0
-rect_pivot_offset = Vector2( 54, 85 )
-custom_fonts/font = ExtResource( 3 )
-text = "Local 1v1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button_Play2" type="Button" parent="Label"]
-margin_left = 698.0
-margin_top = 184.0
-margin_right = 946.0
-margin_bottom = 241.0
-rect_pivot_offset = Vector2( 54, 85 )
-custom_fonts/font = ExtResource( 3 )
-text = "level 2"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button_Credits" type="Button" parent="Label"]
-margin_left = 699.0
-margin_top = 316.0
-margin_right = 948.0
-margin_bottom = 373.0
-rect_pivot_offset = Vector2( 54, 85 )
-custom_fonts/font = ExtResource( 3 )
-text = "CREDITS"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button_Options" type="Button" parent="Label"]
-margin_left = 700.0
-margin_top = 384.0
-margin_right = 948.0
-margin_bottom = 441.0
-rect_pivot_offset = Vector2( 54, 85 )
-custom_fonts/font = ExtResource( 3 )
-text = "OPTIONS"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button_Quit" type="Button" parent="Label"]
-margin_left = 702.0
-margin_top = 451.0
-margin_right = 949.0
-margin_bottom = 508.0
-rect_pivot_offset = Vector2( 54, 85 )
-custom_fonts/font = ExtResource( 3 )
-text = "QUIT"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
 volume_db = -15.0
@@ -93,11 +33,114 @@ position = Vector2( 139, 519 )
 scale = Vector2( 2.5, 2.5 )
 frames = ExtResource( 5 )
 animation = "walk_side"
-frame = 3
+frame = 2
 playing = true
 
-[connection signal="pressed" from="Label/Button_Play" to="." method="_on_Button_Play_pressed"]
-[connection signal="pressed" from="Label/Button_Play2" to="." method="_on_Button_Play2_pressed"]
-[connection signal="pressed" from="Label/Button_Credits" to="." method="_on_Button_Credits_pressed"]
-[connection signal="pressed" from="Label/Button_Options" to="." method="_on_Button_Options_pressed"]
-[connection signal="pressed" from="Label/Button_Quit" to="." method="_on_Button_Quit_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 559.0
+margin_top = 153.0
+margin_right = 984.0
+margin_bottom = 591.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Story" type="Button" parent="VBoxContainer"]
+margin_left = 77.0
+margin_top = 26.0
+margin_right = 347.0
+margin_bottom = 75.0
+rect_pivot_offset = Vector2( 54, 85 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "PLAY story"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 79.0
+margin_right = 425.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Button_1v1_Earth" type="Button" parent="VBoxContainer"]
+margin_top = 103.0
+margin_right = 425.0
+margin_bottom = 152.0
+rect_pivot_offset = Vector2( 54, 85 )
+custom_fonts/font = ExtResource( 3 )
+text = "Local 1v1 Earth"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_1v1_Cosmos" type="Button" parent="VBoxContainer"]
+margin_top = 156.0
+margin_right = 425.0
+margin_bottom = 205.0
+rect_pivot_offset = Vector2( 54, 85 )
+custom_fonts/font = ExtResource( 3 )
+text = "Local 1v1 Cosmos"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 209.0
+margin_right = 425.0
+margin_bottom = 229.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Button_Credits" type="Button" parent="VBoxContainer"]
+margin_left = 124.0
+margin_top = 233.0
+margin_right = 301.0
+margin_bottom = 282.0
+rect_pivot_offset = Vector2( 54, 85 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "CREDITS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Options" type="Button" parent="VBoxContainer"]
+margin_left = 122.0
+margin_top = 286.0
+margin_right = 302.0
+margin_bottom = 335.0
+rect_pivot_offset = Vector2( 54, 85 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "OPTIONS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 339.0
+margin_right = 425.0
+margin_bottom = 359.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Button_Quit" type="Button" parent="VBoxContainer"]
+margin_left = 154.0
+margin_top = 363.0
+margin_right = 270.0
+margin_bottom = 412.0
+rect_pivot_offset = Vector2( 54, 85 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "QUIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="VBoxContainer/Button_Story" to="." method="_on_Button_Story_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_1v1_Earth" to="." method="_on_Button_1v1_Earth_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_1v1_Cosmos" to="." method="_on_Button_1v1_Cosmos_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_Credits" to="." method="_on_Button_Credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_Options" to="." method="_on_Button_Options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_Quit" to="." method="_on_Button_Quit_pressed"]

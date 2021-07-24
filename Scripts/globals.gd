@@ -14,7 +14,16 @@ var P_Volume_Voice = -5
 var P_Help_Screen = true
 var P_Show_Tips = true
 
+var P_Short_Game = true
+
 var P_Difficulty = 1
+
+var Go_To = 1 #Fot help screen
+
+var Speech_ms_per_char = 21
+
+enum {MODE_STORY, MODE_1V1}
+var Game_Mode
 
 
 func load_settings():
@@ -35,6 +44,7 @@ func load_settings():
 	P_Help_Screen  = f.get_value("PREFS","P_Help_Screen",P_Help_Screen)
 	P_Show_Tips	   = f.get_value("PREFS","P_Show_Tips",P_Show_Tips)
 	P_Difficulty   = f.get_value("PREFS","P_Difficulty",P_Difficulty)
+	P_Short_Game   = f.get_value("PREFS","P_Short_Game",P_Short_Game)
 	
 
 func save_settings():
@@ -53,5 +63,6 @@ func save_settings():
 	f.set_value("PREFS","P_Help_Screen",P_Help_Screen)
 	f.set_value("PREFS","P_Show_Tips",P_Show_Tips)
 	f.set_value("PREFS","P_Difficulty",P_Difficulty)
+	f.set_value("PREFS","P_Short_Game",P_Short_Game)
 	f.save(settings_file)
 	

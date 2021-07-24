@@ -20,9 +20,9 @@ func _ready():
 		0:
 			cursor_speed = 450
 		1:
-			cursor_speed = 675
+			cursor_speed = 700
 		2:
-			cursor_speed = 800
+			cursor_speed = 900
 		3:
 			cursor_speed = 1100
 		

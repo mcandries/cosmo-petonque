@@ -14,6 +14,7 @@ func _ready():
 	
 	$Help_Screen.pressed = Gb.P_Help_Screen
 	$Show_Tips.pressed = Gb.P_Show_Tips
+	$Short_Game.pressed = Gb.P_Short_Game
 	
 	$MenuButton.get_popup().toggle_item_checked(Gb.P_Difficulty)
 	$MenuButton.get_popup().connect("id_pressed",self,"_on_id_pressed")
@@ -65,3 +66,7 @@ func _on_id_pressed(id : int):
 	for i in $MenuButton.get_popup().get_item_count():
 		$MenuButton.get_popup().set_item_checked(i,false)
 	$MenuButton.get_popup().set_item_checked(id, true)
+
+
+func _on_Short_Game_toggled(button_pressed):
+	Gb.P_Short_Game = button_pressed

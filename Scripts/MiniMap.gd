@@ -8,9 +8,12 @@ var mini_boules : Array # Array of BoulesC
 
 var blue_circle  = preload("res://Arts/blue_circle.png")
 var red_circle   = preload("res://Arts/red_circle.png")
+var space_bg     = preload("res://Arts/space-bord-petonque.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if $"../..".current_level == 2 :
+		$NinePatchRect.texture = space_bg
 	$TextureRect.texture = $Viewport.get_texture()
 	mini_boules.clear()
 

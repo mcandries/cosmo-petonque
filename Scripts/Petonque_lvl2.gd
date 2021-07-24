@@ -7,6 +7,7 @@ func _init():
 	current_level = 2
 
 func _ready():
+	$AnimationPlayer.play("Fury")
 	pass 
 
 func _process(delta):

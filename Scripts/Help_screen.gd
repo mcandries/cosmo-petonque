@@ -17,4 +17,7 @@ func _ready():
 
 
 func _on_Button_Play_pressed():
-	get_tree().change_scene("res://Petonque_lvl1.tscn")
+	if Gb.Go_To == 1 : 
+		get_tree().change_scene("res://Petonque_lvl1.tscn")
+	else : 
+		get_tree().change_scene("res://Petonque_lvl2.tscn")

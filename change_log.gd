@@ -1,6 +1,27 @@
 ### next ver :
 # - Ajout de 4 niveaux de difficultés via le menu options
 # - Musique pour le level 2 : Space Theme & Escape the Moon 
+# - Cochonet Alourdi
+# - Ajout texture de fond à la minimap
+# - Cochonet couleur blanche sur la minimap
+# - Ajout seconde ligne au visuer (ligne de roulage...), avec niveu d'aide selon le niveau de difficulté
+# - Alignement boutons menu
+# - Ajout déco Arbres / table / shaman dans lvl1
+# - Ajout déco Fury dans lvl2
+# - Fix bug tirage aléatoire du joueur qui commence
+# - Ajout d'un "AB" (Artificial Dumb) en mode story  (au lieu d'un IA ;)
+# - Modification pour le mode 1v1 : on obtiens des messages "player 1 win" / "player 2 win" au lieu de "you win" / "you loose", et on retourne au menu en fin de parie
+# - Ajout option "short game" (en 6 points), sinon victoire en 13 points
+
+
+##Grille de Test :
+# - en 1v1, si Timmy gagne : tout est OK ?
+# - en 1v1, si l'adversaire gagne : tout est OK ?
+# - en story, si timmy perds le level 1, tout est OK ?
+# - en story, si timmy gagne le level 1, tout est OK ?
+# - en story, si timmy perds le level 2, tout est OK ?
+# - en story, si timmy gagne le level 2, tout est OK ?
+
 
 ### 0.0.6
 # - Réduction poids du jeux (~30 Mo au lieu de ~180 Mo) + .exe only

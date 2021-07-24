@@ -11,9 +11,8 @@ class Player_info :
 # var a = 2
 # var b = "text"
 const boule_impulse_factor = 1.4
-const cochonet_impulse_factor = 3
+const cochonet_impulse_factor = 1.8
 var  direction_random = 40  #in pixels
-const score_to_win = 6 ############################ DBG !!! 13
 #distance & color to qualify a launch
 const precision_perfect = 0.15  
 const precision_nice = 0.3
@@ -22,6 +21,8 @@ const precision_perfect_color = Color (20/255.0,240/255.0,20/255.0)
 const precision_nice_color  = Color (20/255.0,200/255.0,20/255.0)
 const precision_bad_color   = Color (240/255.0,20/255.0,20/255.0)
 const closest_boules_delay = 1 #in Seconds
+
+var score_to_win #via option
 
 var music_playlist
 
@@ -102,7 +103,22 @@ func _ready():
 	$AudioStreamPlayer_VoiceWhouah.volume_db = Gb.P_Volume_Voice
 	_on_AudioStreamPlayer_Music_finished()
 	
+	if Gb.P_Short_Game : 
+		score_to_win = 6
+	else:
+		score_to_win = 13
+		
 	$CanvasLayerGUI/Minimap.field_top_left = $Anchor_Field_Start/Anchor_Field_Left
+	
+	match Gb.P_Difficulty:
+		0:
+			direction_random = 35
+		1:
+			direction_random = 40
+		2:
+			direction_random = 50
+		3:
+			direction_random = 60
 	
 	start_level()
 
@@ -129,8 +145,8 @@ func start_level():
 	
 	############################################################ DEBUG TIME
 	Gb.BUILD_TIME = false
-#	current_step = "Wait_Player_Play"
-	#current_step = "Select_First_Player"
+#	current_step = "Select_First_Player"
+#	score_to_win = 3
 
 	############################################################
 	if !Gb.BUILD_TIME:
@@ -203,7 +219,7 @@ func _process(delta):
 				current_step = "Select_First_Player"
 				
 		"Select_First_Player":
-			_set_player(1 + (randi() % 1))
+			_set_player(1 + (randi() % 2))
 			_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage,"Player "+ str(current_player) + " start !",2)
 			current_step = "Go_Terrain"
 			
@@ -215,6 +231,19 @@ func _process(delta):
 				current_step = "Wait_Player_Play"
 		
 		"Wait_Player_Play":
+			
+			if current_player == 2 and Gb.Game_Mode == Gb.MODE_STORY:
+				### It's not an AI it's an AD : Artificial Dumb...
+				if cochonet_on_field : 
+					viseur_selected_position = (cochonet.position - $Viseur_StartPos.position)* 0.8
+				else:
+					viseur_selected_position = $IA_Cochonet.position - $Viseur_StartPos.position
+				precision_set = PrecisionSetP.instance() #fake it
+				precision_set_canceled = false # fake it
+				precision_set_setted = true #fake it
+				_on__precision_set(-1 + (randf() * 2 )) # fakeit
+				current_step = "Player_Set_Precision"
+			
 			if not cochonet_on_field:
 				$Anchor_Field_Start.visible = true
 			
@@ -258,7 +287,7 @@ func _process(delta):
 			
 		"Player_Set_Precision":
 	
-			if Gb.P_Show_Tips :
+			if Gb.P_Show_Tips and not (Gb.Game_Mode == Gb.MODE_STORY and current_player == 2) :
 				_set_label_text_for_second ($CanvasLayerGUI/Control/LabelTips, "Try to do a precise shot by clicking\nwhen the moving line is on the Green zone !", 5.0)
 			
 			if precision_set_canceled:
@@ -288,6 +317,7 @@ func _process(delta):
 					boule.add_to_group("boules")
 					boule.add_to_group("boules_player"+str(current_player))
 					impulse_factor = boule_impulse_factor
+
 				boule.position = $Viseur_StartPos.position
 				var final_vector : Vector2 = Vector2(0,0)
 #				var x_error = - (direction_random/2.0) + (randi() % direction_random)
@@ -296,19 +326,21 @@ func _process(delta):
 				var y_error = direction_random*precision_mult
 				final_vector.x =  viseur_selected_position.x + x_error
 				final_vector.y =  viseur_selected_position.y + y_error
-				if abs(precision_mult)<=precision_perfect:
-					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Perfect Precision !", 3.0)
-					$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_perfect_color)
-					$AudioStreamPlayer_VoiceWhouah.play()
-				elif abs(precision_mult)<=precision_nice:
-					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Nice Precision !", 3.0)
-					$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_nice_color)
-				elif abs(precision_mult)<=precision_normal:
-					$CanvasLayerGUI/Control/LabelPrecision.text = ""
-				else:
-					_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Ho no ! You miss of precision !", 3.0)
-					$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_bad_color)
-					$AudioStreamPlayer_VoiceINeedHealing.play()
+				
+				if not (Gb.Game_Mode == Gb.MODE_STORY and current_player == 2):
+					if abs(precision_mult)<=precision_perfect:
+						_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Perfect Precision !", 3.0)
+						$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_perfect_color)
+						$AudioStreamPlayer_VoiceWhouah.play()
+					elif abs(precision_mult)<=precision_nice:
+						_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Nice Precision !", 3.0)
+						$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_nice_color)
+					elif abs(precision_mult)<=precision_normal:
+						$CanvasLayerGUI/Control/LabelPrecision.text = ""
+					else:
+						_set_label_text_for_second ($CanvasLayerGUI/Control/LabelPrecision, "Ho no ! You miss of precision !", 3.0)
+						$CanvasLayerGUI/Control/LabelPrecision.add_color_override("font_color",precision_bad_color)
+						$AudioStreamPlayer_VoiceINeedHealing.play()
 					
 				boule.apply_impulse(Vector2(0,0), final_vector * impulse_factor )
 				
@@ -322,7 +354,7 @@ func _process(delta):
 				current_step = "Rolling_Boule"
 			
 			scroll_cam()
-			
+		
 		"Rolling_Boule" :
 			if boule is CochonetC:
 				$Anchor_Field_Start.visible = true
@@ -427,9 +459,12 @@ func _process(delta):
 		"Go_Next_Level":
 			if not go_to_next_level_launched:
 				go_to_next_level_launched = true
-				yield(get_tree().create_timer(4.0), "timeout")
-				get_tree().change_scene("res://Petonque_lvl2.tscn")
-				
+				yield(get_tree().create_timer(5.0), "timeout")
+				if current_level == 1: 
+					get_tree().change_scene("res://Scenes/Petonque_lvl2_diag.tscn")
+				else : 
+					get_tree().change_scene("res://Scenes/Petonque_end_diag.tscn")
+					
 		"Return_To_Menu":
 		
 			if not return_to_menu_launched:
@@ -439,7 +474,7 @@ func _process(delta):
 #				timer.connect("timeout","_on___return_to_menu")
 #				add_child(timer)
 #				timer.start()
-				yield(get_tree().create_timer(4.0), "timeout")
+				yield(get_tree().create_timer(5.0), "timeout")
 				get_tree().change_scene("res://Menu.tscn")
 				
 				
@@ -449,6 +484,8 @@ func _process(delta):
 	_show_GUI_boules(1, player1_info.boules_left)
 	_show_GUI_boules(2, player2_info.boules_left)
 	pass
+	
+	
 
 func show_nearest_boule_circle():
 	var closest_player = _closest_player()
@@ -460,19 +497,25 @@ func check_and_set_current_step_if_endgame() -> bool:
 		$AudioStreamPlayer_VoiceTimmyTimmy.play()
 
 	if player1_info.score>=score_to_win:
-		_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You win !",4)
-		$AudioStreamPlayer_VoiceVictory.play()
-		if current_level <2:
+		if Gb.Game_Mode == Gb.MODE_STORY : 
+			_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You win !",4)
 			current_step = "Go_Next_Level"
-		else : 
+		else :
+			_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Player 1 win !",4)
 			current_step = "Return_To_Menu"
+		$AudioStreamPlayer_VoiceVictory.play()
 		return true
 		
 	if player2_info.score>=score_to_win:
-		_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You loose !",4)
-		_show_animated_sprite_for_second ($CanvasLayerGUI/DefeatSprite,4)
-		$AudioStreamPlayer_VoiceDefeat.play()
-		current_step = "Return_To_Menu"
+		if Gb.Game_Mode == Gb.MODE_STORY : 
+			_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "You loose !",4)
+			_show_animated_sprite_for_second ($CanvasLayerGUI/DefeatSprite,4)
+			$AudioStreamPlayer_VoiceDefeat.play()
+			current_step = "Return_To_Menu"
+		else : 
+			_set_label_text_for_second($CanvasLayerGUI/Control/LabelMainMessage, "Player 2 win !",4)
+			current_step = "Return_To_Menu"
+			$AudioStreamPlayer_VoiceVictory.play()
 		return true
 	
 	return false
