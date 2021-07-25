@@ -1,4 +1,7 @@
-### next ver :
+### 1.0 : 
+# - Correction bug sur dialogue
+
+### 0.0.9 : 
 # - Ajout de 4 niveaux de difficultés via le menu options
 # - Musique pour le level 2 : Space Theme & Escape the Moon 
 # - Cochonet Alourdi
